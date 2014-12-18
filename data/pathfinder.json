@@ -1,7 +1,7 @@
 {
-  "characters": {
+  "character": {
     "Ian": {
-      "stats": {
+      "stat": {
         "str": "8",
         "dex": "15",
         "con": "12",
@@ -11,7 +11,7 @@
       }
     },
     "Dan": {
-      "stats": {
+      "stat": {
         "str": "12",
         "dex": "16",
         "con": "8",
