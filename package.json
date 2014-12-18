@@ -5,9 +5,13 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.10.6",
+    "grunt": "^0.4.5",
+    "grunt-express-server": "^0.4.19",
+    "grunt-contrib-watch": "^0.6.1",
     "jade": "^1.8.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
