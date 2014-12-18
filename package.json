@@ -4,7 +4,8 @@
   "description": "manage your RPG characters",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.10.6"
+    "express": "^4.10.6",
+    "jade": "^1.8.2"
   },
   "devDependencies": {},
   "scripts": {
