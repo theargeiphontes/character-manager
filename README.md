@@ -23,4 +23,4 @@ character-manager
   * [Jade syntax examples](http://naltatis.github.io/jade-syntax-docs/)
 
 ## To do
-
+~~* Add linter~~

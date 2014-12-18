@@ -12,6 +12,16 @@ module.exports = function(grunt) {
       }
     },
 
+    jshint: {
+      all: [
+        'Gruntfile.js',
+        'src/**/*.js'
+      ],
+      options: {
+        jshintrc: true
+      }
+    },
+
     express: {
       options: {
         
@@ -26,7 +36,8 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
-  grunt.registerTask('default', ['express:dev', 'watch']);
+  grunt.registerTask('default', ['jshint', 'express:dev', 'watch']);
 
 };
