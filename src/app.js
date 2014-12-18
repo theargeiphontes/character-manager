@@ -4,6 +4,14 @@ var jade = require('jade');
 var fs = require('fs');
 
 var app = express();
+
+var char_data;
+
+readJSONFile(__dirname + '/../data/ian.json', function (err, json) {
+  if(err) { throw err; }
+  char_data = json;
+  console.log(char_data);
+});
  
 app.get('/', function(req, res) {
     var html = jade.render('h1 Hello World!');
@@ -26,7 +34,7 @@ app.get('/', function(req, res) {
 });*/
 
 app.get('/pathfinder/ian', function(req, res) {
-  var html = jade.renderFile(__dirname + "/templates/index.jade", {character : {'name' : 'Ian'}});
+  var html = jade.renderFile(__dirname + "/templates/index.jade", char_data);
   res.send(html);
 });
 
@@ -44,6 +52,17 @@ app.get('/pathfinder', function(req, res) {
       res.send(character_data);
     });
 });
+
+function readJSONFile(filename, callback) {
+  fs.readFile(filename, function (err, data) {
+    if(err) {
+      callback(err);
+      return;
+    }
+    try { callback(null, JSON.parse(data)); } 
+    catch(exception) { callback(exception); }
+  });
+}
 
 var server = app.listen(3000, function() {
   console.log('Listening on http://127.0.0.1:%d/', server.address().port);
