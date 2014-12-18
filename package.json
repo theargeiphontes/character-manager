@@ -1,0 +1,23 @@
+{
+  "name": "character-manager",
+  "version": "0.0.0",
+  "description": "manage your RPG characters",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.10.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theargeiphontes/character-manager.git"
+  },
+  "author": "Ian Ames",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theargeiphontes/character-manager/issues"
+  },
+  "homepage": "https://github.com/theargeiphontes/character-manager"
+}
