@@ -24,3 +24,4 @@ character-manager
 
 ## To do
 ~~* Add linter~~
+* Add [JSDoc](http://usejsdoc.org/about-getting-started.html)?
