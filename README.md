@@ -9,6 +9,11 @@ character-manager
   * Pathfinder
   * New World of Darkness
   * Mage the Ascension
+
+## Getting started
+1. Run `npm install` 
+1. Run `grunt` to start server
+1. Go to `localhost:3000/pathfinder` to see initial page
   
 ## Tech Stack
 

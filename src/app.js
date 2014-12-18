@@ -10,11 +10,26 @@ app.get('/', function(req, res) {
     res.send(html);
 });
 
-/*app.get('/pathfinder', function(req, res) {
+app.get('/pathfinder/Ian', function(req, res) {
+  fs.readFile(__dirname + '/../data/ian.json', function(err, data) {
+    var character_data = JSON.parse(data);
+    character_data.find({ character: character_data.name }, function (err, data) {
+      if(err) { console.log(err); }
+      else {
+        console.log('Ian' + character_data[0]);
+        res.render('character', {
+          character: character_data[0]
+        })
+      }
+    });
+  });
+});
+
+app.get('/pathfinder.json', function(req, res) {
   fs.readFile(__dirname + '/../data/pathfinder.json', function(err, data) {
     res.send(data);
   });
-});*/
+});
 
 app.get('/pathfinder', function(req, res) {
     fs.readFile(__dirname + '/../data/pathfinder.json', function(err, data) {
