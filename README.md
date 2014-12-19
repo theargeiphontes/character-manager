@@ -29,9 +29,9 @@ character-manager
 * Add [JSDoc](http://usejsdoc.org/about-getting-started.html)?
 * Add storage solution
 * Swap over to [sublime text 3](http://www.sublimetext.com/3)
-  * convert over terminal command `subl`
+  * ~~convert over terminal command `subl`~~
   * cucumberjs highlighting 
-* Add syntax highlighting to sublime for jade
+  * jade highlighting
 * Swap over to [trello board](https://trello.com/) for user features
 
 ### User features
