@@ -16,10 +16,6 @@ readJSONFile(__dirname + '/../data/ian.json', function (err, json) {
   console.log(char_data);
 });
 
-app.use(function (req,res) { 
-    res.render('404', { url: req.url }); 
-});
- 
 app.get('/', function(req, res) {
     var html = jade.render('h1 Hello World!');
     res.send(html);
@@ -36,6 +32,10 @@ app.get('/pathfinder.json', function(req, res) {
 
 app.get('/pathfinder', function(req, res) {
     
+});
+
+app.use(function (req,res) { 
+    res.render('404', { url: req.url }); 
 });
 
 function readJSONFile(filename, callback) {
