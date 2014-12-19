@@ -1,7 +1,7 @@
 {
   "character": {
     "name": "Ian",
-    "stat": {
+    "stats": {
       "str": "8",
       "dex": "15",
       "con": "12",
