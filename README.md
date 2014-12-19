@@ -25,3 +25,10 @@ character-manager
 ## To do
 * ~~Add linter~~
 * Add [JSDoc](http://usejsdoc.org/about-getting-started.html)?
+* Add storage solution
+* I want to be able to go to a url on the server, find a character.
+  * ~~if i cannot find a character, the system will 404~~
+  * if i find a character, it will populate the stats for that character
+* I want to be able to edit a character
+* I want to be able to save a character's edits
+
