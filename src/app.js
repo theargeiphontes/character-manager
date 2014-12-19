@@ -4,34 +4,26 @@ var jade = require('jade');
 var fs = require('fs');
 
 var app = express();
+app.set('views', __dirname + '/templates'); 
+app.set('view engine', 'jade'); 
 
 var char_data;
 
+// Initial data load
 readJSONFile(__dirname + '/../data/ian.json', function (err, json) {
   if(err) { throw err; }
   char_data = json;
   console.log(char_data);
+});
+
+app.use(function (req,res) { 
+    res.render('404', { url: req.url }); 
 });
  
 app.get('/', function(req, res) {
     var html = jade.render('h1 Hello World!');
     res.send(html);
 });
-
-/*app.get('/pathfinder/Ian', function(req, res) {
-  fs.readFile(__dirname + '/../data/ian.json', function(err, data) {
-    var character_data = JSON.parse(data);
-    character_data.find({ character: character_data.name }, function (err, data) {
-      if(err) { console.log(err); }
-      else {
-        console.log('Ian' + character_data[0]);
-        res.render('character', {
-          character: character_data[0]
-        });
-      }
-    });
-  });
-});*/
 
 app.get('/pathfinder/ian', function(req, res) {
   var html = jade.renderFile(__dirname + "/templates/index.jade", char_data);
