@@ -1,10 +1,13 @@
 doctype html
 html
   head
-    title my jade template
+    title #{ character.name }
   body
-    h1 Oh Hai
-    h2 #{ character.name } 
-    h2 Strength: !{ character.stat.str }
+    h1 #{ character.name } 
+    h2 
+      for stat in character.stats 
+        p !{ stat }
+      else
+        p no stats allocated
 
 

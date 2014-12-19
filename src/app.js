@@ -39,18 +39,11 @@ app.get('/pathfinder/ian', function(req, res) {
 });
 
 app.get('/pathfinder.json', function(req, res) {
-  fs.readFile(__dirname + '/../data/pathfinder.json', function(err, data) {
-    res.send(data);
-  });
+  res.send(char_data);
 });
 
 app.get('/pathfinder', function(req, res) {
-    fs.readFile(__dirname + '/../data/pathfinder.json', function(err, data) {
-      var character_data = JSON.parse(data);
-      character_data.notes.push(req.body);
-      var character_string = JSON.stringify(character_data, null, 2);
-      res.send(character_data);
-    });
+    
 });
 
 function readJSONFile(filename, callback) {
