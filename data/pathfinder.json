@@ -1,22 +1,27 @@
 {
-  "character": {
-    "name": "Ian",
-    "stat": {
-      "str": "8",
-      "dex": "15",
-      "con": "12",
-      "int": "14",
-      "wis": "10",
-      "cha": "16"
+  "characters": 
+  [ 
+    {
+      "name": "George",
+      "stats": {
+        "str": "8",
+        "dex": "15",
+        "con": "12",
+        "int": "14",
+        "wis": "10",
+        "cha": "16"
+      }
+    },
+    {
+      "name": "Dan",
+      "stats": {
+       "str": "12",
+        "dex": "16",
+        "con": "8",
+        "int": "20",
+        "wis": "10",
+        "cha": "17"
+      }
     }
-  },
-    "name": "Dan",
-    "stat": {
-     "str": "12",
-      "dex": "16",
-      "con": "8",
-      "int": "20",
-      "wis": "10",
-      "cha": "17"
-    }
+  ]
 }
