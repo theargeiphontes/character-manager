@@ -28,7 +28,7 @@ character-manager
 * ~~Add linter~~
 * Add [JSDoc](http://usejsdoc.org/about-getting-started.html)?
 * Add storage solution
-* Swap over to [sublime text 3](http://www.sublimetext.com/3)
+* ~~Swap over to [sublime text 3](http://www.sublimetext.com/3)~~
   * ~~[convert over terminal command `subl`](https://www.sublimetext.com/docs/3/osx_command_line.html)~~
   * ~~[jade highlighting](https://sublime.wbond.net/packages/Jade)~~
 * Swap over to [trello board](https://trello.com/) for user features
@@ -37,6 +37,8 @@ character-manager
 * I want to be able to go to a url on the server, find a character.
   * ~~if i cannot find a character, the system will 404~~
   * if i find a character, it will populate the stats for that character
+* I want to be able to go to any url and find a character
+  * if i can't find a character, 404
 * I want to be able to edit a character
 * I want to be able to save a character's edits
 
