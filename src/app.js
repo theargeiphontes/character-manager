@@ -24,8 +24,10 @@ app.get('/', function(req, res) {
 
 app.get('/pathfinder/:charId?', function(req, res) {
   var charId = req.params.charId;
-  console.log(charId, char_data.characters[charId]);
-  var html = jade.renderFile(__dirname + "/templates/index.jade", char_data[charId]);
+  var character = char_data.characters[charId];
+  console.log(char_data.characters[charId]);
+  console.log(character);
+  var html = jade.renderFile(__dirname + "/templates/index.jade", { locals: character});
   res.send(html);
 });
 
