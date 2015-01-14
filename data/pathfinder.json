@@ -1,7 +1,6 @@
 {
-  "characters": 
-  [ 
-    {
+  "characters": {
+    "0": {
       "name": "George",
       "stats": {
         "str": "8",
@@ -12,7 +11,7 @@
         "cha": "16"
       }
     },
-    {
+    "1": {
       "name": "Dan",
       "stats": {
        "str": "12",
@@ -23,5 +22,5 @@
         "cha": "17"
       }
     }
-  ]
+  }
 }
