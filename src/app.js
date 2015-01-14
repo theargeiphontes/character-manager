@@ -12,9 +12,6 @@ var char_data = null;
 fs.readFile(__dirname + '/../data/pathfinder.json', function (err, json) {
   if(err) { throw err; }
   char_data = JSON.parse(json);
-  console.log('char_data >> ' + char_data);
-  console.log('characters >> ' + char_data.characters);
-  console.log('Dan >> ' + char_data.characters['0']);
 });
 
 app.get('/', function(req, res) {
@@ -23,11 +20,9 @@ app.get('/', function(req, res) {
 });
 
 app.get('/pathfinder/:charId?', function(req, res) {
-  var charId = req.params.charId;
-  var character = char_data.characters[charId];
-  console.log(char_data.characters[charId]);
-  console.log(character);
-  var html = jade.renderFile(__dirname + "/templates/index.jade", { locals: character});
+  var html = jade.renderFile(__dirname + "/templates/index.jade", { 
+      character: char_data.characters[req.params.charId]
+    });
   res.send(html);
 });
 
