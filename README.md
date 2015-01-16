@@ -1,6 +1,10 @@
 character-manager
 =================
 
+## In-progress
+
+This is a personal project to cut my teeth on JS fundamentals.
+
 ## Manager your RPG characters
 
 * System agnostic 
@@ -38,11 +42,11 @@ character-manager
 ### User features
 * I want to be able to go to a url on the server, find a character.
   * if i cannot find a character, the system will 404
-  ~~* if i find a character, it will populate the stats for that character~~
+  * ~~if i find a character, it will populate the stats for that character~~
 * I want to be able to go to any url and find a character
   * if i can't find a character, 404
 * I want to be able to edit a character
-  ~~* enable edit button with alert~~
+  * ~~enable edit button with alert~~
   * convert stats into edit boxes with ajax
 * I want to be able to save a character's edits
 
