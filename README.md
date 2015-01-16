@@ -31,6 +31,7 @@ character-manager
 * ~~Swap over to [sublime text 3](http://www.sublimetext.com/3)~~
   * ~~[convert over terminal command `subl`](https://www.sublimetext.com/docs/3/osx_command_line.html)~~
   * ~~[jade highlighting](https://sublime.wbond.net/packages/Jade)~~
+* Move to [ember](http://emberjs.com/)
 * Possible [OAuth](http://dailyjs.com/2014/11/14/grant/) solution
 * Swap over to [trello board](https://trello.com/) for user features
 
@@ -41,5 +42,7 @@ character-manager
 * I want to be able to go to any url and find a character
   * if i can't find a character, 404
 * I want to be able to edit a character
+  ~~* enable edit button with alert~~
+  * convert stats into edit boxes with ajax
 * I want to be able to save a character's edits
 
