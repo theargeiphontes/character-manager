@@ -1,13 +1,18 @@
 doctype html
 html
   head
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js")
+    script(src="/javascript/main.js")
     title #{ character.name }
   body
     h1 #{ character.name } 
     h2 
-      for stat in character.stats 
-        p #{ stat }
+      for statVal, stat in character.stats 
+        p #{ stat } #{ statVal }
       else
         p no stats allocated
+      input#editButton(
+        type="button"
+        value="Edit")
 
 
