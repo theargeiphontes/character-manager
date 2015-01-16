@@ -6,12 +6,13 @@ var fs = require('fs');
 var app = express();
 app.set('views', __dirname + '/templates'); 
 app.set('view engine', 'jade'); 
-var char_data = null;
+
+var __char_data = null;
 
 // Initial data load
 fs.readFile(__dirname + '/../data/pathfinder.json', function (err, json) {
   if(err) { throw err; }
-  char_data = JSON.parse(json);
+  __char_data = JSON.parse(json);
 });
 
 app.get('/', function(req, res) {
@@ -21,29 +22,18 @@ app.get('/', function(req, res) {
 
 app.get('/pathfinder/:charId?', function(req, res) {
   var html = jade.renderFile(__dirname + "/templates/index.jade", { 
-      character: char_data.characters[req.params.charId]
+      character: __char_data.characters[req.params.charId]
     });
   res.send(html);
 });
 
 app.get('/pathfinder.json', function(req, res) {
-  res.send(char_data);
+  res.send(__char_data);
 });
 
 app.use('/*', function (req, res) { 
     res.render('404', { url: req.url }); 
 });
-
-function readJSONFile(filename, callback) {
-  fs.readFile(filename, function (err, data) {
-    if(err) {
-      callback(err);
-      return;
-    }
-    try { callback(null, JSON.parse(data)); } 
-    catch(exception) { callback(exception); }
-  });
-}
 
 var server = app.listen(3000, function() {
   console.log('Listening on http://127.0.0.1:%d/', server.address().port);
