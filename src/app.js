@@ -16,19 +16,22 @@ fs.readFile(__dirname + '/../data/pathfinder.json', function (err, json) {
 });
 
 app.get('/', function(req, res) {
-    var html = jade.render('h1 Hello World!');
-    res.send(html);
+  var html = jade.render('h1 Hello World!');
+  res.send(html);
 });
 
-app.get('/search', function(req, res) {
-    var html = jade.renderFile(__dirname + '/templates/search.jade');
-    res.send(html);
-});
-
-app.get('/pathfinder/:charId?', function(req, res) {
+app.get('/pathfinder/characters/:charId', function(req, res) {
   var html = jade.renderFile(__dirname + '/templates/index.jade', { 
-      character: __charData.characters[req.params.charId]
-    });
+    character: __charData.characters[req.params.charId]
+  });
+  res.send(html);
+});
+
+app.post('/pathfinder/characters/:charId', function(req, res){
+  console.log('edit route');
+  var html = jade.renderFile(__dirname + '/templates/index.jade', { 
+    character: __charData.characters[req.params.charId]
+  });
   res.send(html);
 });
 
@@ -37,7 +40,7 @@ app.get('/pathfinder.json', function(req, res) {
 });
 
 app.use('/*', function (req, res) { 
-    res.render('404', { url: req.url }); 
+  res.render('404', { url: req.url }); 
 });
 
 var server = app.listen(3000, function() {
