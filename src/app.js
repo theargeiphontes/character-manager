@@ -1,8 +1,14 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var jade = require('jade');
 var fs = require('fs');
 
 var app = express();
+
+app.use(bodyParser.text({
+  type: 'text/*'
+}));
+
 app.set('views', __dirname + '/templates'); 
 app.set('view engine', 'jade'); 
 app.use(express.static(__dirname, '/javascript'));
@@ -27,11 +33,9 @@ app.get('/pathfinder/characters/:charId', function(req, res) {
   res.send(html);
 });
 
-app.post('/pathfinder/characters/:charId', function(req, res){
-  console.log('edit route');
-  var html = jade.renderFile(__dirname + '/templates/index.jade', { 
-    character: __charData.characters[req.params.charId]
-  });
+app.post('/pathfinder/character/save', function(req, res){
+  console.log(res);
+  var html = jade.render('h1 derp');
   res.send(html);
 });
 

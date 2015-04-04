@@ -1,20 +1,30 @@
 doctype html
 html
   head
-    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')
-    script(src='/javascript/main.js')
+    script(src = '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+    script(src = '/javascript/main.js')
     title #{ character.name }
   body
     h1 #{ character.name } 
-    h2 
-      for statVal, stat in character.stats 
-        p #{ stat } #{ statVal }
-      else
-        p no stats allocated
+    form(action = '/pathfinder/character/save', method = 'post' class='saveCharForm')
+      table
+        tbody
+        each statVal, stat in character.stats 
+          tr
+            td #{ stat } 
+            td
+              input.edit(
+                type = 'number'
+                name = '#{ stat }', 
+                value = '#{ statVal }'
+                disabled)
       input(
-        type='button'
-        value='Edit'
-        class='editChar')
-      p(class='edit')
+        type = 'button'
+        value = 'Edit'
+        class = 'editChar')
+      input(
+        type = 'button'
+        value = 'Save'
+        class = 'saveCharButton')
 
 
