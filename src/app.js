@@ -5,9 +5,8 @@ var fs = require('fs');
 
 var app = express();
 
-app.use(bodyParser.text({
-  type: 'text/*'
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.set('views', __dirname + '/templates'); 
 app.set('view engine', 'jade'); 
@@ -34,7 +33,8 @@ app.get('/pathfinder/characters/:charId', function(req, res) {
 });
 
 app.post('/pathfinder/character/save', function(req, res){
-  console.log(res);
+  console.log('res.body -- ' + res.body);
+  //console.log('res.locals -- ' + res.locals);
   var html = jade.render('h1 derp');
   res.send(html);
 });
