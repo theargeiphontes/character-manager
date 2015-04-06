@@ -1,16 +1,17 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var util = require('util'); 
 var jade = require('jade');
 var fs = require('fs');
 
 var app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
 app.set('views', __dirname + '/templates'); 
 app.set('view engine', 'jade'); 
 app.use(express.static(__dirname, '/javascript'));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 var __charData = null;
 
@@ -33,9 +34,8 @@ app.get('/pathfinder/characters/:charId', function(req, res) {
 });
 
 app.post('/pathfinder/character/save', function(req, res){
-  console.log('res.body -- ' + res.body);
-  //console.log('res.locals -- ' + res.locals);
-  var html = jade.render('h1 derp');
+  console.log('req -- ' + util.inspect(req.body));
+  var html = jade.render('h1 page');
   res.send(html);
 });
 

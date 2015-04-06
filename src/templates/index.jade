@@ -6,7 +6,7 @@ html
     title #{ character.name }
   body
     h1 #{ character.name } 
-    form(action = '/pathfinder/character/save', method = 'post' class='saveCharForm')
+    form(action = '/pathfinder/character/save', name = 'charForm' method = 'post' class='saveCharForm')
       table
         tbody
         each statVal, stat in character.stats 
@@ -15,7 +15,7 @@ html
             td
               input.edit(
                 type = 'number'
-                name = '#{ stat }', 
+                name = '#{ stat }Val', 
                 value = '#{ statVal }'
                 disabled)
       input(
