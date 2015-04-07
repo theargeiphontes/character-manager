@@ -3,10 +3,12 @@ html
   head
     script(src = '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')
     script(src = '/javascript/main.js')
+    link(rel = 'stylesheet' href = '/css/main.css')
     title #{ character.name }
   body
     h1 #{ character.name } 
     form(action = '/pathfinder/character/save', name = 'charForm' method = 'post' class='saveCharForm')
+      input(type="hidden" name="charId" value="#{ charId }")
       table
         tbody
         each statVal, stat in character.stats 
@@ -15,7 +17,7 @@ html
             td
               input.edit(
                 type = 'number'
-                name = '#{ stat }Val', 
+                name = '#{ stat }', 
                 value = '#{ statVal }'
                 disabled)
       input(
@@ -25,6 +27,6 @@ html
       input(
         type = 'submit'
         value = 'Save'
-        class = 'saveCharButton')
+        class = 'hide saveCharButton')
 
 
