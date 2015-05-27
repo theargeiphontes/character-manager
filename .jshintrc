@@ -6,7 +6,7 @@
   "curly": true,
   "eqeqeq": true,
   "immed": true,
-  "latedef": true,
+  "latedef": false,
   "newcap": false,
   "noarg": true,
   "sub": true,
@@ -41,3 +41,4 @@
     "xdescribe": false
   }
 }
+
