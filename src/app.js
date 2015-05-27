@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var jade = require('jade');
 var fs = require('fs');
 
+var dbRead = require('/src/models/DBFileRead.js');
+
 var app = express();
 
 app.set('views', __dirname + '/templates'); 
