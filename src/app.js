@@ -1,12 +1,14 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-//var util = require('util'); 
 var jade = require('jade');
-var fs = require('fs');
 
-var dbRead = require('/src/models/DBFileRead.js');
+var DB = require('../src/models/DBFileRead.js');
+//var pfCharacters = require('../src/controllers/PathfinderCharacters.js');
+var pfChar = require('../src/models/PathfinderCharacter.js');
 
 var app = express();
+
+//pfCharacters = new pfCharacters();
 
 app.set('views', __dirname + '/templates'); 
 app.set('view engine', 'jade'); 
@@ -15,19 +17,17 @@ app.use(express.static(__dirname, '/javascript'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var __charData = null;
+var dbPath = __dirname + '/data/';
+var dbJson = 'pathfinder.json';
+var DB = new DB();
+var __charData = DB.loadDB(dbPath, dbJson);
 
-// Initial data load
-fs.readFile(__dirname + '/../data/pathfinder.json', function (err, json) {
-  if(err) { throw err; }
-  __charData = JSON.parse(json);
-});
+if(__charData == null) { throw '__charData is null'; }
 
-/*function writeCharacter(charId, charData) {
-  if(!charId || !charData) { throw 'No data'; }
-
-  console.log(__charData.characters[charId]);
-}*/
+var pfChars = {};
+for(var id in __charData) {
+  pfChars[id] = new pfChar(id, __charData[id]);
+}
 
 app.get('/', function(req, res) {
   var html = jade.render('h1 Hello World!');
@@ -37,34 +37,25 @@ app.get('/', function(req, res) {
 app.get('/pathfinder/characters/:charId', function (req, res) {
   var html = jade.renderFile(__dirname + '/templates/index.jade', { 
     charId: req.params.charId,
-    character: __charData.characters[req.params.charId]
+    character: pfChars[id].getJson()
   });
   res.send(html);
 });
 
 app.post('/pathfinder/character/save', function (req, res){
-  var __char = __charData.characters[req.body.charId];
-  console.log(__char.stats.str);
-  console.log(req.body._str);
+  var __char = __charData[req.body.charId];
   __char.stats.str = req.body._str;
   __char.stats.dex = req.body._dex;
   __char.stats.con = req.body._con;
   __char.stats.int = req.body._int;
   __char.stats.wis = req.body._wis;
   __char.stats.cha = req.body._cha;
-  __charData.characters[req.body.charId] = __char;
+  __charData[req.body.charId] = __char;
 
-  var save = JSON.stringify(__charData);
-
-  fs.writeFile(__dirname + '/../data/pathfinder.json', 
-    save, 
-    function (err) {
-      if(err) { throw err; }
-      console.log('Char saved');
-    }
-  );
-  var html = jade.render('h1 char saved');
-  res.send(html);
+  console.log(req.body.stats);
+  DB.writeDB(dbPath, dbJson, JSON.stringify(__charData, null, 4));
+  
+  res.redirect('/pathfinder/characters/' + req.body.charId);
 });
 
 app.get('/pathfinder.json', function(req, res) {

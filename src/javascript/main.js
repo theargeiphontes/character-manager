@@ -4,12 +4,15 @@ $(document).ready( function() {
     $('.hide').show(); 
   });
   $('.saveCharForm').submit(function(){
+    console.log('save form');
     var inputStats = $('input[type=\'number\']');
     var charId = $('input[name=\'charId\'');
     var stats = {};
+    console.log('declare vars');
     inputStats.each( function() {
       stats[this.name] = this.value;
     });
+    console.log('before ajax');
     $.ajax({
       url: '/pathfinder/character/save',
       type: 'POST',
@@ -21,5 +24,6 @@ $(document).ready( function() {
         console.log('saveCharForm failed.');
       }
     });
+    console.log('after ajax');
   });
 });
