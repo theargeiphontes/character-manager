@@ -1,28 +1,27 @@
+//var BPromise = require('bluebird');
+
 var pfCharacter = require('../models/PathfinderCharacter.js');
 var DB = require('../models/DBFileRead.js');
 
 var dbPath = '/Users/iames/code/character-manager/src/data/';
 var dbJson = 'pathfinder.json';
 var DB = new DB();
-var __charData = DB.loadDB(dbPath, dbJson);
-console.log('pf >>' + __charData);
 
-var charList = {};
+var __charData = {};
 
 var PathfinderCharacters = function () {
-    console.log('constructor start');
-    if(__charData == null || __charData === '') { throw '__charData is null'; }
-    console.log(__charData.length);
-    var id = 0;
-    for(; id < __charData.length; id++) {
-        console.log(__charData[id]);
-        charList.push(new pfCharacter(id, __charData[id]));
+    var dbload = DB.loadDB(dbPath, dbJson).finally( function() {
+    for (var id in dbload) {
+      console.log('id >> ' + id);
+      __charData.put(new pfCharacter(id, dbload[id]));
+      console.log('name >> ' + __charData[id].name);
     }
-    console.log('constructor end');
+    });
 };
 
 // Returns all the data for a character as json
 /*PathfinderCharacter.prototype.getCharacter () {
 
 };*/
+
 module.exports = PathfinderCharacters;

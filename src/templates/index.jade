@@ -1,13 +1,14 @@
 doctype html
 html
   head
-    script(src = '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')
-    script(src = '/javascript/main.js')
+    link(rel='shortcut icon', href='/images/gobo-draco.png', type='image/x-icon')
     link(rel = 'stylesheet' href = '/css/main.css')
+    script(src = '/javascript/ajax.jquery.min2.1.3.js')
+    script(src = '/javascript/main.js')
     title #{ character.name }
   body
     h1 #{ character.name } 
-    form(action = '/pathfinder/character/save', name = 'charForm' method = 'post' class='saveCharForm')
+    form(action = '/pathfinder/characters/#{ charId }', name = 'charForm' method = 'post' class='saveCharForm')
       input(type="hidden" name="charId" value="#{ charId }")
       table
         tbody
@@ -17,7 +18,7 @@ html
             td
               input.edit(
                 type = 'number'
-                name = '_#{ stat }', 
+                name = '#{ stat }', 
                 value = '#{ statVal }'
                 disabled)
       input(

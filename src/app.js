@@ -1,6 +1,6 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var jade = require('jade');
+var BPromise = require('bluebird');
 
 var DB = require('../src/models/DBFileRead.js');
 //var pfCharacters = require('../src/controllers/PathfinderCharacters.js');
@@ -8,23 +8,34 @@ var pfChar = require('../src/models/PathfinderCharacter.js');
 
 var app = express();
 
-//pfCharacters = new pfCharacters();
-
 app.set('views', __dirname + '/templates'); 
 app.set('view engine', 'jade'); 
 app.use(express.static(__dirname, '/javascript'));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
 var dbPath = __dirname + '/data/';
 var dbJson = 'pathfinder.json';
+
 var DB = new DB();
-var __charData = DB.loadDB(dbPath, dbJson);
+var __charData;
+BPromise.join(DB.loadDB(dbPath, dbJson).then(function(data) {
+  console.log('dbload >> ' + data);
+  for(var id in data) {
+    console.log('id >> ' + id);
+    __charData.put(new pfChar(id, data[id]));
+    console.log('name >> ' + __charData[id].getName());
+  }
+}).catch(function(err) {
+  console.error('error =( >> ' + err);
+})).done();
 
-if(__charData == null) { throw '__charData is null'; }
+app.get('/', function(req, res) {
+  var html = jade.render('h1 Hello World! >> ' + __charData[0]);
+  res.send(html);
+});
 
-var pfChars = {};
+//pfCharacters = new pfCharacters();
+
+/*var pfChars = {};
 for(var id in __charData) {
   pfChars[id] = new pfChar(id, __charData[id]);
 }
@@ -42,20 +53,15 @@ app.get('/pathfinder/characters/:charId', function (req, res) {
   res.send(html);
 });
 
-app.post('/pathfinder/character/save', function (req, res){
-  var __char = __charData[req.body.charId];
-  __char.stats.str = req.body._str;
-  __char.stats.dex = req.body._dex;
-  __char.stats.con = req.body._con;
-  __char.stats.int = req.body._int;
-  __char.stats.wis = req.body._wis;
-  __char.stats.cha = req.body._cha;
-  __charData[req.body.charId] = __char;
+app.post('/pathfinder/characters/:charId', function (req, res){
+  pfChars[req.body.charId].updateStats(req.body.stats);
 
   console.log(req.body.stats);
   DB.writeDB(dbPath, dbJson, JSON.stringify(__charData, null, 4));
   
-  res.redirect('/pathfinder/characters/' + req.body.charId);
+  var html = jade.render('h1 Hello World!');
+  res.send(html);
+  //res.redirect('/pathfinder/characters/' + req.body.charId);
 });
 
 app.get('/pathfinder.json', function(req, res) {
@@ -64,7 +70,7 @@ app.get('/pathfinder.json', function(req, res) {
 
 app.use('/*', function (req, res) { 
   res.render('404', { url: req.url }); 
-});
+});*/
 
 var server = app.listen(3000, function() {
   console.log('Listening on http://127.0.0.1:%d/', server.address().port);
