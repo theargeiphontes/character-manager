@@ -17,19 +17,20 @@ var dbJson = 'pathfinder.json';
 
 var DB = new DB();
 var __charData;
-BPromise.join(DB.loadDB(dbPath, dbJson).then(function(data) {
+BPromise.join(DB.loadDB(dbPath, dbJson), function(data) {
   console.log('dbload >> ' + data);
   for(var id in data) {
     console.log('id >> ' + id);
     __charData.put(new pfChar(id, data[id]));
     console.log('name >> ' + __charData[id].getName());
   }
+  console.log('__charData >> ' + __charData);
 }).catch(function(err) {
   console.error('error =( >> ' + err);
-})).done();
+}).done();
 
 app.get('/', function(req, res) {
-  var html = jade.render('h1 Hello World! >> ' + __charData[0]);
+  var html = jade.render('h1 Hello World! >> ');
   res.send(html);
 });
 
