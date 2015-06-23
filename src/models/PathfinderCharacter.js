@@ -1,7 +1,7 @@
 function PathfinderCharacter (id, __char) {
     this.id = id;
-    this.name = __char['name'];
-    this.stats = __char['stats'];
+    this.name = __char.name;
+    this.stats = __char.stats;
     this.json = __char;
 }
 
@@ -49,7 +49,7 @@ PathfinderCharacter.prototype.updateStats (stats) {
 // Update specific stat with value
 PathfinderCharacter.prototype.updateStat = function (statName, statVal) {
     if(statVal === undefined || statVal == null || statVal === '') { throw 'statVal is undefined'; }
-        if(statName === undefined || statName == null || statName === '') { throw 'statName is undefined'; }
+    if(statName === undefined || statName == null || statName === '') { throw 'statName is undefined'; }
 
     this.stats[statName] = statVal;
 };

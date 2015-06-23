@@ -9,7 +9,7 @@ DBFileRead.prototype.loadDB = function (path, filename) {
   return fs.readFileAsync(path + filename, 'utf8')
             .then(JSON.parse)
             .then(function(file) {
-              console.log(file);
+              return file;
             }).catch(function(err) {
               console.error('bad read! >> ' + err);
             });

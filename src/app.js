@@ -16,15 +16,11 @@ var dbPath = __dirname + '/data/';
 var dbJson = 'pathfinder.json';
 
 var DB = new DB();
-var __charData;
+var __charData = [];
 BPromise.join(DB.loadDB(dbPath, dbJson), function(data) {
-  console.log('dbload >> ' + data);
   for(var id in data) {
-    console.log('id >> ' + id);
-    __charData.put(new pfChar(id, data[id]));
-    console.log('name >> ' + __charData[id].getName());
+    __charData.push(new pfChar(id, data[id]));
   }
-  console.log('__charData >> ' + __charData);
 }).catch(function(err) {
   console.error('error =( >> ' + err);
 }).done();
