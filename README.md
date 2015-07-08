@@ -25,8 +25,18 @@ This is a personal project to cut my teeth on JS fundamentals.
 * [GruntJS](gruntjs.com) - task runner
 * [Jade](http://jade-lang.com/) - html templates
   * [Jade syntax examples](http://naltatis.github.io/jade-syntax-docs/)
+* [Bluebird](https://github.com/petkaantonov/bluebird) - promises
+* Unit tests
+  * [ChaiJS](http://chaijs.com/) - expect syntax
+  * [grunt-mocha](https://github.com/kmiyashiro/grunt-mocha) - unit tests
 
 ## To do
+
+* look at backbone get and set / data module
+* unit tests
+  * grunt runner task (grunt-mocha)
+  * install chai
+    * `expect` syntax
 
 ### Dev enhancements
 * ~~Add linter~~
