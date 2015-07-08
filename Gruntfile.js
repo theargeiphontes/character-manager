@@ -24,13 +24,26 @@ module.exports = function(grunt) {
     },
 
     express: {
-      options: {
-        
+      options: {   
       },
       dev: {
         options: {
           script: 'src/app.js'
         }
+      },
+      test: {
+        options: {
+          script: 'src/app.js'
+        }
+      }
+    }
+
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['spec/unit/**/*.js']
       }
     }
   });
@@ -38,7 +51,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-mocha');
 
   grunt.registerTask('default', ['jshint', 'express:dev', 'watch']);
-
+  
+  grunt.registerTask('test:setup', ['jshint', 'express:test']);
+  grunt.registerTask('test', ['test:setup', 'mochaTest']);
 };
