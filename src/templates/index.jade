@@ -5,14 +5,14 @@ html
     link(rel = 'stylesheet' href = '/css/main.css')
     script(src = '/javascript/ajax.jquery.min2.1.3.js')
     script(src = '/javascript/main.js')
-    title #{ character.name }
+    title #{ name }
   body
-    h1 #{ character.name } 
+    h1 #{ name } 
     form(action = '/pathfinder/characters/#{ charId }', name = 'charForm' method = 'post' class='saveCharForm')
       input(type="hidden" name="charId" value="#{ charId }")
       table
         tbody
-        each statVal, stat in character.stats 
+        each statVal, stat in stats 
           tr
             td #{ stat } 
             td
