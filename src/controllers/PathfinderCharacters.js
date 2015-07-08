@@ -10,12 +10,12 @@ var DB = new DB();
 var __charData = {};
 
 var PathfinderCharacters = function () {
-    var dbload = DB.loadDB(dbPath, dbJson).finally( function() {
-    for (var id in dbload) {
-      console.log('id >> ' + id);
-      __charData.put(new pfCharacter(id, dbload[id]));
-      console.log('name >> ' + __charData[id].name);
-    }
+    var dbload = DB.loadDB(dbPath, dbJson).finally(function() {
+        for (var id in dbload) {
+          console.log('id >> ' + id);
+          __charData.put(new pfCharacter(id, dbload[id]));
+          console.log('name >> ' + __charData[id].name);
+        }
     });
 };
 

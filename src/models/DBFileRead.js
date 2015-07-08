@@ -11,16 +11,18 @@ DBFileRead.prototype.loadDB = function (path, filename) {
             .then(function(file) {
               return file;
             }).catch(function(err) {
-              console.error('bad read! >> ' + err);
+              console.error('Bad file read >> ' + err);
             });
 };
 
 DBFileRead.prototype.writeDB = function (path, filename, json) {
-  fs.writeFile(path + filename, json, function (err) {
-      if(err) { throw err; }
-      console.log('Char saved');
-    }
-  );
+  fs.writeFileAsync(path + filename, JSON.stringify(json, null, 4))
+    .then(function() {
+      console.log('File saved');
+    })
+    .catch(function(err) {
+      console.error('Bad file write >> ' + err);
+    }).done();
 };
 
 module.exports = DBFileRead;

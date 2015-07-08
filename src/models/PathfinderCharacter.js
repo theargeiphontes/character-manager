@@ -25,10 +25,14 @@ PathfinderCharacter.prototype.getJson = function () {
 };
 
 PathfinderCharacter.prototype.updateStats = function (stats) {
-    if(stats === undefined || stats == null || stats === '') { throw 'stats is undefined'; }
+    if(stats === undefined || stats == null || stats === '') { 
+        throw 'stats is undefined'; 
+    }
     for(var stat in stats) {
+        console.log(stat + ' >> ' + stats[stat]);
         this.stats[stat] = stats[stat];
     }
+    this.json['stats'] = JSON.stringify(stats);
 };
 
 // Update character name
@@ -48,10 +52,14 @@ PathfinderCharacter.prototype.updateStats (stats) {
 
 // Update specific stat with value
 PathfinderCharacter.prototype.updateStat = function (statName, statVal) {
-    if(statVal === undefined || statVal == null || statVal === '') { throw 'statVal is undefined'; }
-    if(statName === undefined || statName == null || statName === '') { throw 'statName is undefined'; }
+    if(statVal === undefined || statVal == null || statVal === '') { 
+      throw 'statVal is undefined'; 
+    } if(statName === undefined || statName == null || statName === '') { 
+      throw 'statName is undefined'; 
+    }
 
     this.stats[statName] = statVal;
+    this.json['stats'][statName] = statVal;
 };
 
 module.exports = PathfinderCharacter;

@@ -4,18 +4,15 @@ $(document).ready( function() {
     $('.hide').show(); 
   });
   $('.saveCharForm').submit(function(ev){
-    console.log('save form');
     var inputStats = $('input[type=\'number\']');
     var charId = $('input[name=\'charId\'').val();
     var stats = {};
-    console.log('declare vars');
     inputStats.each( function() {
       stats[this.name] = this.value;
     });
-    console.log('before ajax');
     
     $.ajax({
-      url: '/pathfinder/character/save',
+      url: '/pathfinder/characters/' + charId,
       method: 'POST',
       contentType: 'application/json',
       data : JSON.stringify({ stats: stats, charId: charId }),
@@ -26,8 +23,6 @@ $(document).ready( function() {
         console.log('saveCharForm failed.');
       }
     });
-
-    console.log('after ajax');
     ev.preventDefault();
   });
 });
