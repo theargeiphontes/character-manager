@@ -36,7 +36,7 @@ module.exports = function(grunt) {
           script: 'src/app.js'
         }
       }
-    }
+    },
 
     mochaTest: {
       test: {
@@ -51,10 +51,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-mocha');
+  grunt.loadNpmTasks('grunt-mocha-test');
 
   grunt.registerTask('default', ['jshint', 'express:dev', 'watch']);
-  
+
   grunt.registerTask('test:setup', ['jshint', 'express:test']);
   grunt.registerTask('test', ['test:setup', 'mochaTest']);
 };

@@ -12,11 +12,11 @@
     "jade": "^1"
   },
   "devDependencies": {
+    "chai": "^3.0.0",
     "debug": "^2.2.0",
     "grunt-contrib-jshint": "^0.10.0",
-    "chai": "^3.0.0",
     "grunt-contrib-watch": "^0.6",
-    "grunt-mocha": "^0.4.13"
+    "grunt-mocha-test": "^0.12.7"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
