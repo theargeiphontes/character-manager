@@ -1,9 +1,9 @@
 //var BPromise = require('bluebird');
-
+var path = require('path');
 var pfCharacter = require('../models/PathfinderCharacter.js');
 var DB = require('../models/DBFileRead.js');
 
-var dbPath = '/Users/iames/code/character-manager/src/data/';
+var dbPath = path.resolve(__dirname + '../data/');
 var dbJson = 'pathfinder.json';
 var DB = new DB();
 
