@@ -1,10 +1,10 @@
 var expect = require('chai').expect;
-var Character = require('../../src/models/PathfinderCharacter.js');
+var PathfinderCharacter = require('../../src/models/PathfinderCharacter.js');
 
 var __id = 0;
-var __charData = {
+var __charData0 = {
   'name': 'Ian',
-  'game': 'pathfinder'
+  'game': 'pathfinder',
   'stats': {
     'str': '10',
     'dex': '15',
@@ -22,7 +22,7 @@ describe('pathfinder character', function() {
   var character;
 
   beforeEach(function() {
-    character = new PathfinderCharacter(__id, __charData);
+    character = new PathfinderCharacter(__id, __charData0);
   });
 
   describe('#get()', function() {
