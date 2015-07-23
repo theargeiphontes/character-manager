@@ -11,7 +11,7 @@ DBFileRead.prototype.loadDB = function (path, filename) {
             .then(function(file) {
               return file;
             }).catch(function(err) {
-              console.error('Bad file read >> ' + err);
+              throw new Error('Bad file read >> ' + err);
             });
 };
 
@@ -21,7 +21,7 @@ DBFileRead.prototype.writeDB = function (path, filename, json) {
       console.log('File saved');
     })
     .catch(function(err) {
-      console.error('Bad file write >> ' + err);
+      throw new Error('Bad file write >> ' + err);
     }).done();
 };
 

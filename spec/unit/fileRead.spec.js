@@ -3,14 +3,11 @@ var BPromise = require('bluebird');
 var path = require('path');
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
-
-//console.log(chai);
 chai.use(chaiAsPromised);
-var expect = chai.expect();
-var should = chai.should();
 
-//console.log(chai);
-//console.log('should >> ' + should);
+var should = chai.should();
+var assert = chai.assert;
+
 
 var dbLoad = new DB();
 
@@ -19,19 +16,23 @@ var dbJson = 'pathfinder.json';
 
 describe('db', function() {
   describe('#read()', function() {
-    it('should read file', function(done) {
-      dbLoad.loadDB(dbPath, dbJson)
-        .then(function(data) {
-          expect(data[0].name).to.equal('George');
-          expect(data[1].stats).to.have.property('str', '12');
-      }).catch(done());
+    it('should read file', function() {
+      return dbLoad.loadDB(dbPath, dbJson)
+              .then(function(data) {
+              data[0].name.should.equal('George');
+              data[1].stats.should.have.property('str', '12');
+            });
     });
   });
 
   // TODO: make it work
   describe('#failRead()', function() {
-    it('should fail to read due to bad path', function(done) {
-       return expect(dbLoad.loadDB('a/terrible/path/to/follow/', dbJson)).should.be.rejected.and.notify(done);
+    it('should fail to read due to bad path', function() {
+      return BPromise.resolve(dbLoad.loadDB('a/terrible/path/to/follow/', dbJson))
+      .then(assert.fail)
+      .catch(function(err) {
+        assert.equal(err, 'Error: Bad file read >> Error: ENOENT, open \'a/terrible/path/to/follow/pathfinder.json\'');
+      });
     });
   });
 });
