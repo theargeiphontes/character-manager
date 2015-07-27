@@ -3,14 +3,13 @@ function Character(id, json) {
   this.JSON = json;
 }
 
+// TODO: should my code here use extend on type Object?
+
 Character.prototype.getId = function() {
   return this.id;
 };
 
 Character.prototype.get = function(key) {
-  if(this.JSON[key] === undefined) {
-    throw new Error('Key not found');
-  }
   return this.JSON[key];
 };
 
@@ -19,9 +18,6 @@ Character.prototype.getJSON = function() {
 };
 
 Character.prototype.set = function(key, data) {
-  if(this.JSON[key] === undefined) {
-    throw new Error('Key not found');
-  }
   this.JSON[key] = data;
 };
 

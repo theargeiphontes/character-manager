@@ -28,8 +28,7 @@ describe('character', function() {
     });
 
     it('fail to get malformed field name', function() {
-      expect(function() { character.get('wrongKey') })
-        .to.throw(/Key not found/);
+      expect(character.get('wrongKey')).to.be.undefined;
     });
   });
 
@@ -44,8 +43,8 @@ describe('character', function() {
       // TODO: why does my character model point directly at my JSON?
       //expect(name).to.not.equal(__charData['name']);
 
-      expect(name).to.not.equal('Ian');
-      expect(game).to.not.equal('test');
+      expect(name).to.equal('Odin');
+      expect(game).to.equal('unit');
     });
     
     it('successfully set character data and get raw data', function() {
@@ -67,8 +66,7 @@ describe('character', function() {
     });
 
     it('fails to set data due to wrong field name', function() {
-      expect(function() { character.set('wrongKey', 'myBad') })
-        .to.throw(/Key not found/);
+      expect(character.set('wrongKey', 'myBad')).to.be.undefined;
     });
   });
 });
