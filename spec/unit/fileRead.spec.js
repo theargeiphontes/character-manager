@@ -7,6 +7,7 @@ chai.use(chaiAsPromised);
 
 var should = chai.should();
 var assert = chai.assert;
+var expect = chai.expect;
 
 
 var dbLoad = new DB();
@@ -23,16 +24,19 @@ describe('db', function() {
               data[1].stats.should.have.property('str', '12');
             });
     });
-  });
 
-  // TODO: make it work
-  describe('#failRead()', function() {
     it('should fail to read due to bad path', function() {
-      return BPromise.resolve(dbLoad.loadDB('a/terrible/path/to/follow/', dbJson))
+      return dbLoad.loadDB('a/terrible/path/to/follow/', dbJson)
       .then(assert.fail)
       .catch(function(err) {
-        assert.equal(err, 'Error: Bad file read >> Error: ENOENT, open \'a/terrible/path/to/follow/pathfinder.json\'');
+        assert.include(err.message, 'Bad file read');
       });
     });
   });
+
+  /*describe('#write()' function() {
+    it('should save file', function() {
+     return dbLoad.writeDB(dbPath, dbJson, )
+    });
+  });*/
 });
