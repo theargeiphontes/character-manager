@@ -19,6 +19,9 @@ This is a personal project to cut my teeth on JS fundamentals.
 1. Run `grunt` to start server
 1. Go to `localhost:3000/pathfinder` to see initial page
   
+## Running tests
+1. Run `grunt test` to execute unit tests
+
 ## Tech Stack
 
 * [NodeJS](nodejs.org) - server
@@ -29,14 +32,6 @@ This is a personal project to cut my teeth on JS fundamentals.
 * Unit tests
   * [ChaiJS](http://chaijs.com/) - expect syntax
   * [grunt-mocha](https://github.com/kmiyashiro/grunt-mocha) - unit tests
-
-## To do
-
-* look at backbone get and set / data module
-* unit tests
-  * grunt runner task (grunt-mocha)
-  * install chai
-    * `expect` syntax
 
 ### Dev enhancements
 * ~~Add linter~~
