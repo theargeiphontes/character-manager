@@ -38,31 +38,11 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
   // TODO: too much parse int?
   // TODO: validate function, return true or return 'feild': [errors...]
   'addClass': function(className, level) {
-    this.level = parseInt(level);
-
-    // Checking level cap
-    var charLevel = 0;
-    for(var charClass in this.JSON['class']) {
-      charLevel += parseInt(this.JSON['class'][charClass]);
-    }
-    if(charLevel + this.level > LEVEL_CAP) {
-      throw new Error('Adding' + className + ' exceeds level cap >> ' + LEVEL_CAP);
-    }
-    this.JSON['class'][className] = this.level.toString();
+    this.JSON['class'][className] = level;
   },
 
   'updateClass': function(className, level) {
-    this.level = parseInt(level);
-
-    // Checking level cap
-    var charLevel = 0;
-    for(var charClass in this.JSON['class']) {
-      charLevel += parseInt(this.JSON['class'][charClass]);
-    }
-    if(charLevel + this.level > LEVEL_CAP) {
-      throw new Error('Adding ' + className + ' exceeds level cap >> ' + LEVEL_CAP);
-    }
-    this.JSON['class'][className] = this.level.toString();
+    this.JSON['class'][className] = level;
   }, 
 
   'validate': function() {
@@ -86,7 +66,7 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
         charLevel += parseInt(this.JSON['class'][charClass]);  
       }
     }
-    if(charLevel > 20) {
+    if(charLevel > LEVEL_CAP) {
       status.push('Total character level greater than 20, ' + charLevel);
     }
 
