@@ -48,8 +48,7 @@ describe('pathfinder character', function() {
     });
 
     it('fail to get malformed stat name', function() {
-      expect(function() { character.getStat('charm') })
-        .to.throw(/Stat not found/);
+      expect(character.getStat('charm')).to.be.undefined;
     });
 
     it('fail to fetch undefined classList', function() {
@@ -68,20 +67,16 @@ describe('pathfinder character', function() {
           'rat': '1'
         }
       }
-      var myChar = new PathfinderCharacter(1, myCharData);
-      expect(function() { myChar.getClassList() })
-        .to.throw(/No character classes found/);
+      var myChar = new PathfinderCharacter(2, myCharData);
+      expect(myChar.getClassList()).to.be.undefined;
     });
   });
 
   describe('#set()', function() {
-    it('set name', function() {
+    it('update name and stat', function() {
       character.set('name', 'Ian the Great');
-      expect(character.get('name')).to.equal('Ian the Great');
-    });
-
-    it('set stats', function() {
       character.setStat('str', '12');
+      expect(character.get('name')).to.equal('Ian the Great');
       expect(character.getStat('str')).to.equal('12');
     });
 
@@ -94,35 +89,42 @@ describe('pathfinder character', function() {
       character.addClass('fighter', '2');
       expect(character.getClassList()['fighter']).to.equal('2');
     });
+  });
 
-    it('fail to add new class due to string', function() {
-      expect(function() { character.addClass('fighter', 'pie') })
-        .to.throw(/Level is not an int/);
-    }); 
-
-    it('fail to update class not in classList', function() {
-      expect(function() { character.updateClass('swordmage', '5') })
-        .to.throw(/not found in list of classes/);
+  describe('#validate()', function() {
+    it('validate a character is good', function() {
+      expect(character.validate()).to.be.empty;
     });
 
-    it('fail to update class due to level cap', function() {
-      expect(function() { character.updateClass('rogue', '20') })
-        .to.throw(/exceeds level cap/);
-    });
+    it('validate a character has errors', function() {
+      var myCharData = {
+        'name': 'Ian',
+        'game': 'pathfinder',
+        'fishy': {
+          'rat': '1'
+        }
+      }
+      var myChar = new PathfinderCharacter(5, myCharData);
+      expect(myChar.validate().length).to.equal(1);
 
-    it('fail to update class level by passing string', function() {
-      expect(function() { character.updateClass('rogue', 'pie') })
-        .to.throw(/Level is not an int/);
-    });
+      myCharData = {
+        'name': 'Ian',
+        'game': 'pathfinder',
+        'stats': {
+          'str': '12',
+          'dex': '8'
+        },
+        'class': {
+          'rat': '1'
+        }
+      }
+      myChar = new PathfinderCharacter(6, myCharData);
+      myChar.addClass('swordmage', 'swordchucks');
+      expect(myChar.validate().length).to.equal(1);
 
-    it('fail to update stats by passing string', function(){
-      expect(function() { character.setStat('str', 'pie'); })
-        .to.throw(/statValue is not an int/);
-    });
-
-    it('fail to update stats with out of bounds value', function(){
-      expect(function() { character.setStat('str', '500'); })
-        .to.throw(/statValue out of bounds/);
+      myChar.setStat('int', '9001');
+      myChar.setStat('cha', 'pie');
+      expect(myChar.validate().length).to.equal(3);
     });
   });
 });
