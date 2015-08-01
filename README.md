@@ -5,6 +5,10 @@ character-manager
 
 This is a personal project to cut my teeth on JS fundamentals.
 
+## ES6
+
+* babeljs.io
+
 ## Manager your RPG characters
 
 * System agnostic 
