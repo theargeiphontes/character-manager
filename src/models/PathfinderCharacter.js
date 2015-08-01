@@ -14,6 +14,12 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
 // TODO: JSON saves as strings, should I parse all my ints to int at a class level then when 
 // I save everything, convert it back to strings?
 
+// TODO: character.save();
+/* 
+  sinon
+  spies - wraps a function, and asserts that its been called
+  stub - replace a fucntion with a fake 
+*/
   'getStats': function() {
     return this.JSON['stats'];
   },
@@ -34,9 +40,6 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
     this.JSON['stats'][stat] = statValue;
   },
 
-  // TODO: Break out checking level cap into its own private function
-  // TODO: too much parse int?
-  // TODO: validate function, return true or return 'feild': [errors...]
   'addClass': function(className, level) {
     this.JSON['class'][className] = level;
   },
@@ -45,43 +48,83 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
     this.JSON['class'][className] = level;
   }, 
 
-  'validate': function() {
-    var status = [];
-    var charLevel = 0;
+  // TODO: check for truthiness?
+  /* 
+  validateStats() {
+    return [];
+  }
 
-    if(this.JSON['class'] === undefined) {
-      status.push('Character does not possess any class levels');
+  validate() {
+    var errs = {};
+    errs['stats'] = validateStats();
+    return errs;
+  }
+  */
+  'validate': function() {
+    var errs = {};
+    
+    errs['class'] = this.validateClass();
+    errs['stats'] = this.validateStats();
+    
+    return errs;
+  },
+
+  'validateClass': function() {
+    var errs = [];
+    var charLevel = 0;
+    var level;
+   
+    if(this.JSON['class'] === undefined || this.JSON['class'] === null) {
+      errs.push('Character does not possess any class levels');
     }
     for (var charClass in this.JSON['class']) {
       // Checking for undefined character classes
       if(charClass === undefined) {
-        status.push('Class ' + charClass + ' is undefined');
+        errs.push('Class ' + charClass + ' is undefined');
+      }
+      if(charClass === null) {
+        errs.push('Class ' + charClass + ' is null');
       }
 
       // Checking that class level is an int
-      if(isNaN(parseInt(this.JSON['class'][charClass]), 10)) {
-        status.push('Class ' + charClass + ' level is not an int');
+      level = parseInt(this.JSON['class'][charClass], 10);
+      if(isNaN(level)) {
+        errs.push('Class ' + charClass + ' level ' + this.JSON['class'][charClass] + ' is not an int');
       } else {
         // Checking total character level
-        charLevel += parseInt(this.JSON['class'][charClass]);  
+        charLevel += level;  
       }
     }
     if(charLevel > LEVEL_CAP) {
-      status.push('Total character level greater than 20, ' + charLevel);
+      errs.push('Total character level greater than ' + LEVEL_CAP + ', ' + charLevel);
     }
+    return errs;
+  },
 
+  'validateStats': function() {
+    var errs = [];
+    if(this.JSON['stats'] === undefined) {
+      errs.push('Stats data is undefined');
+    }
+    if(this.JSON['stats'] === null) {
+      errs.push('Stats data is null');
+    } 
     for (var stat in this.JSON['stats']) {
       if(stat === undefined) {
-        status.push(stat + ' is undefined');
+        errs.push(stat + ' is undefined');
+      }
+      if(stat === null) {
+        errs.push(stat + ' is null');
       } 
       if(isNaN(parseInt(this.JSON['stats'][stat]), 10)) {
-        status.push('Stat ' + stat + ' is not an int');
+        errs.push('Stat ' + stat + ' is not an integer');
       } else if (parseInt(this.JSON['stats'][stat], 10) > 200) {
-        status.push('Stat ' + stat + ' out of bounds');
+        errs.push('Stat ' + stat + ' out of bounds');
       }
     }
-    return status;
+    return errs;
   }
+
 });
 
 module.exports = PathfinderCharacter;

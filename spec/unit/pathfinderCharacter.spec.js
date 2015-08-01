@@ -93,7 +93,9 @@ describe('pathfinder character', function() {
 
   describe('#validate()', function() {
     it('validate a character is good', function() {
-      expect(character.validate()).to.be.empty;
+      errs = character.validate()
+      expect(errs['class']).to.be.empty;
+      expect(errs['stats']).to.be.empyt;
     });
 
     it('validate a character has errors', function() {
@@ -105,7 +107,9 @@ describe('pathfinder character', function() {
         }
       }
       var myChar = new PathfinderCharacter(5, myCharData);
-      expect(myChar.validate().length).to.equal(1);
+      var errs = myChar.validate();
+      expect(errs['class'].length).to.equal(1);
+      expect(errs['stats'].length).to.equal(1);
 
       myCharData = {
         'name': 'Ian',
@@ -120,11 +124,13 @@ describe('pathfinder character', function() {
       }
       myChar = new PathfinderCharacter(6, myCharData);
       myChar.addClass('swordmage', 'swordchucks');
-      expect(myChar.validate().length).to.equal(1);
+      errs = myChar.validate();
+      expect(errs['class'].length).to.equal(1);
 
       myChar.setStat('int', '9001');
       myChar.setStat('cha', 'pie');
-      expect(myChar.validate().length).to.equal(3);
+      errs = myChar.validate();
+      expect(errs['stats'].length).to.equal(2);
     });
   });
 });
