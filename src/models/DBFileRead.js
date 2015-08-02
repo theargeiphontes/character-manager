@@ -7,22 +7,19 @@ var DBFileRead = function () {
 
 DBFileRead.prototype.loadDB = function (path, filename) {
   return fs.readFileAsync(path + filename, 'utf8')
-            .then(JSON.parse)
-            .then(function(file) {
-              return file;
-            }).catch(function(err) {
-              throw new Error('Bad file read >> ' + err);
-            });
+          .then(JSON.parse)
+          .then(function(file) {
+            return file;
+          }).catch(function(err) {
+            throw new Error('Could not read ' + filename + ' from disk ' + err);
+          });
 };
 
 DBFileRead.prototype.writeDB = function (path, filename, json) {
-  fs.writeFileAsync(path + filename, JSON.stringify(json, null, 4))
-    .then(function() {
-      console.log('File saved');
-    })
+  return fs.writeFileAsync(path + filename, JSON.stringify(json, null, 4), 'utf8')
     .catch(function(err) {
-      throw new Error('Bad file write >> ' + err);
-    }).done();
+      return new Error('Could not write ' + filename + ' to disk ' + err);
+    });
 };
 
 module.exports = DBFileRead;
