@@ -1,4 +1,5 @@
 var _ = require('underscore');
+
 var Character = require('./Character.js');
 
 var LEVEL_CAP = 20;
