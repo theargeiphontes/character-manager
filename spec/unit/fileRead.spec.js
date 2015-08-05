@@ -1,5 +1,3 @@
-var DB = require('../../src/models/DBFileRead.js');
-
 var BPromise = require('bluebird');
 var fs = BPromise.promisifyAll(require('fs'));
 var path = require('path');
@@ -9,6 +7,8 @@ chai.use(chaiAsPromised);
 
 var should = chai.should();
 var assert = chai.assert;
+
+var DB = require('../../src/models/DBFileRead.js');
 
 describe('db', function() {
   var dbLoad;
@@ -22,7 +22,7 @@ describe('db', function() {
     dbJson = 'pathfinder.json';
   });
 
-  describe('#workingAsIntended()', function() {
+  describe('Working as Intended', function() {
     it('read and save file', function() {
       return dbLoad.loadDB(dbPath, dbJson)
         .then(function(json) {
@@ -39,7 +39,7 @@ describe('db', function() {
     });
   });
 
-  describe('#fail()', function() {
+  describe('Failure as Intended', function() {
     it('should fail to read due to bad path', function() {
       return dbLoad.loadDB('a/terrible/path/to/follow/', dbJson)
       .then(assert.fail)
@@ -52,12 +52,11 @@ describe('db', function() {
       var failJSON = {
         "fail": "boat"
       }
+
       return dbLoad.writeDB('a/terrible/path/to/follow/', dbJson, failJSON)
-      .then(assert.fail)
-      .catch(function(err) {
-      console.log(err)
-      assert.include(err.message, 'Could not write');
-      });
+        .then(function(err) {
+          assert.include(err.message, 'Could not write');
+        });
     });
   });
 });
