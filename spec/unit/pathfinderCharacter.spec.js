@@ -93,7 +93,7 @@ describe('pathfinder character', function() {
 
   describe('#validate()', function() {
     it('validate a character is good', function() {
-      errs = character.validate()
+      var errs = character.validate()
       expect(errs['class']).to.be.empty;
       expect(errs['stats']).to.be.empyt;
     });

@@ -1,4 +1,5 @@
 var expect = require('chai').expect;
+
 var Character = require('../../src/models/Character.js');
 
 var __id = 0;

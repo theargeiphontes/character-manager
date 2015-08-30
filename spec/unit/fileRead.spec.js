@@ -13,35 +13,35 @@ var DB = require('../../src/models/DBFileRead.js');
 describe('db', function() {
   var dbLoad;
   var dbPath;
-  var dbJson;
+  var dbJSON;
 
   beforeEach(function() {
     dbLoad = new DB();
 
     dbPath = path.resolve(__dirname + '/../../src/data') + '/';
-    dbJson = 'pathfinder.json';
+    dbJSON = 'pathfinder.json';
   });
 
   describe('Working as Intended', function() {
     it('read and save file', function() {
-      return dbLoad.loadDB(dbPath, dbJson)
+      return dbLoad.loadDB(dbPath, dbJSON)
         .then(function(json) {
           json[0].name.should.equal('George');
           json[1].stats.should.have.property('str', '12');
-          dbLoad.writeDB(dbPath, 'new' + dbJson, json);
+          dbLoad.writeDB(dbPath, 'new' + dbJSON, json);
         })
         .catch(function(err) {
           console.error('Err =( ++ ' + err);
         })
         .finally(function() {
-          fs.unlinkAsync(dbPath + 'new' + dbJson);
+          fs.unlinkAsync(dbPath + 'new' + dbJSON);
         });
     });
   });
 
   describe('Failure as Intended', function() {
     it('should fail to read due to bad path', function() {
-      return dbLoad.loadDB('a/terrible/path/to/follow/', dbJson)
+      return dbLoad.loadDB('a/terrible/path/to/follow/', dbJSON)
       .then(assert.fail)
       .catch(function(err) {
         assert.include(err.message, 'Could not read');
@@ -53,7 +53,7 @@ describe('db', function() {
         "fail": "boat"
       }
 
-      return dbLoad.writeDB('a/terrible/path/to/follow/', dbJson, failJSON)
+      return dbLoad.writeDB('a/terrible/path/to/follow/', dbJSON, failJSON)
         .then(function(err) {
           assert.include(err.message, 'Could not write');
         });
