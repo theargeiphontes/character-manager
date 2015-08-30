@@ -57,7 +57,7 @@ describe('pathfinder DB helper', function() {
     dbPath = path.resolve(__dirname + '/../../src/data') + '/';
     dbJson = 'pathfinder.json';
 
-    mock = sinon.mock(PathfinderCharacter). 
+    //mock = sinon.mock(PathfinderCharacter); 
   });
 
   describe('#save()', function() {
