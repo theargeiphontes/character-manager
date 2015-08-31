@@ -3,6 +3,9 @@ var _ = require('underscore');
 var Character = require('./Character.js');
 
 var LEVEL_CAP = 20;
+var STAT_MAX = 200;
+
+var spellSlots = {};
 
 function PathfinderCharacter (id, __char) {
     this.id = id;
@@ -10,11 +13,6 @@ function PathfinderCharacter (id, __char) {
 }
 
 PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
-
-// TODO: should I wrap my errior checking into functions or as is?
-// TODO: JSON saves as strings, should I parse all my ints to int at a class level then when 
-// I save everything, convert it back to strings?
-
 // TODO: character.save();
 /* 
   sinon
@@ -49,18 +47,13 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
     this.JSON['class'][className] = level;
   }, 
 
-  // TODO: check for truthiness?
-  /* 
-  validateStats() {
-    return [];
-  }
+  'loadSpellSlots': function(spellsPerDay) {
+    for(var className in this.JSON['class']) {
+      spellSlots[className] = spellsPerDay[className][this.JSON['class'][className]];
+    }
+    return spellSlots;
+  },
 
-  validate() {
-    var errs = {};
-    errs['stats'] = validateStats();
-    return errs;
-  }
-  */
   'validate': function() {
     var errs = {};
     
@@ -119,7 +112,7 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
       } 
       if(isNaN(parseInt(this.JSON['stats'][stat]), 10)) {
         errs.push('Stat ' + stat + ' is not an integer');
-      } else if (parseInt(this.JSON['stats'][stat], 10) > 200) {
+      } else if (parseInt(this.JSON['stats'][stat], 10) > STAT_MAX) {
         errs.push('Stat ' + stat + ' out of bounds');
       }
     }

@@ -21,4 +21,8 @@ PathfinderDBHelper.prototype.save = function(path, db, characterMap) {
   }
 };
 
+PathfinderDBHelper.prototype.loadSpells = function(path, db) {
+  return DB.loadDB(path, db);
+};
+
 module.exports = PathfinderDBHelper;

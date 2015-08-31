@@ -91,6 +91,53 @@ describe('pathfinder character', function() {
     });
   });
 
+  describe('spells', function() {
+    it('cast spells', function() {
+      var myCharData =  {
+        'name': 'Ian',
+        'game': 'pathfinder',
+        'stats': {
+          'str': '10',
+          'dex': '15',
+          'con': '10',
+          'int': '20',
+          'wis': '12',
+          'cha': '14'
+        },
+        'class': {
+          'wizard': '3'
+        }
+      };
+      var myCharacter = new PathfinderCharacter(5, myCharData);
+      var spellsPerDay = {
+        'wizard': {
+          '1': '[3, 1]',
+          '2': '[4, 2]',
+          '3': '[4, 2, 1]',
+          '4': '[4, 3, 2]',
+          '5': '[4, 3, 2, 1]',
+          '6': '[4, 3, 3, 2]',
+          '7': '[4, 4, 3, 2, 1]',
+          '8': '[4, 4, 3, 3, 2]',
+          '9': '[4, 4, 4, 3, 2, 1]',
+          '10': '[4, 4, 4, 3, 3, 2]',
+          '11': '[4, 4, 4, 4, 3, 2, 1]',
+          '12': '[4, 4, 4, 4, 3, 3, 2]',
+          '13': '[4, 4, 4, 4, 4, 3, 2, 1]',
+          '14': '[4, 4, 4, 4, 4, 3, 3, 2]',
+          '15': '[4, 4, 4, 4, 4, 4, 3, 2, 1]',
+          '16': '[4, 4, 4, 4, 4, 4, 3, 3, 2]',
+          '17': '[4, 4, 4, 4, 4, 4, 4, 3, 2, 1]',
+          '18': '[4, 4, 4, 4, 4, 4, 4, 3, 3, 2]',
+          '19': '[4, 4, 4, 4, 4, 4, 4, 4, 3, 3]',
+          '20': '[4, 4, 4, 4, 4, 4, 4, 4, 4, 4]'
+        }
+      };
+      var spellSlots = myCharacter.loadSpellSlots(spellsPerDay);
+      expect(spellSlots['wizard']).to.equal('[4, 2, 1]');
+    });
+  });
+
   describe('#validate()', function() {
     it('validate a character is good', function() {
       var errs = character.validate()
