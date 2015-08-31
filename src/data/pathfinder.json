@@ -21,6 +21,14 @@
       "int": "20",
       "wis": "10",
       "cha": "17"
+    },
+    "class": {
+      "wizard": "3"
+    },
+    "spellsKnown": {
+      "0": "['Acid Splash', 'Daze', 'Light', 'Ghost Sounds', 'Prestidigitation']",
+      "1": "['Grease', 'Mage Armor', 'Color Spray', 'Magic Missile']",
+      "2": "['Invisibility', 'Burning Arc', 'Blur']"
     }
   },
   "2": {
