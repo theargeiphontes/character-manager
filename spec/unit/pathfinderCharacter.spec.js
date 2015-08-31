@@ -134,7 +134,7 @@ describe('pathfinder character', function() {
         }
       };
       var spellSlots = myCharacter.loadSpellSlots(spellsPerDay);
-      expect(spellSlots['wizard']).to.equal('[4, 2, 1]');
+      expect(spellSlots['wizard']).to.be.an('array');
     });
   });
 
@@ -142,7 +142,7 @@ describe('pathfinder character', function() {
     it('validate a character is good', function() {
       var errs = character.validate()
       expect(errs['class']).to.be.empty;
-      expect(errs['stats']).to.be.empyt;
+      expect(errs['stats']).to.be.empty;
     });
 
     it('validate a character has errors', function() {

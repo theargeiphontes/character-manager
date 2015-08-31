@@ -49,10 +49,14 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
 
   'loadSpellSlots': function(spellsPerDay) {
     for(var className in this.JSON['class']) {
-      spellSlots[className] = spellsPerDay[className][this.JSON['class'][className]];
+      spellSlots[className] = JSON.parse(spellsPerDay[className][this.JSON['class'][className]]);
     }
     return spellSlots;
   },
+
+  //'prepareSpells': function(spellList) {
+
+  //},
 
   'validate': function() {
     var errs = {};
