@@ -26,10 +26,15 @@
       "wizard": "3"
     },
     "spellsKnown": {
-      "0": "['Acid Splash', 'Daze', 'Light', 'Ghost Sounds', 'Prestidigitation']",
-      "1": "['Grease', 'Mage Armor', 'Color Spray', 'Magic Missile']",
-      "2": "['Invisibility', 'Burning Arc', 'Blur']"
-    }
+      "wizard": {
+        "0": "['Acid Splash', 'Daze', 'Light', 'Ghost Sounds', 'Prestidigitation']",
+        "1": "['Grease', 'Mage Armor', 'Color Spray', 'Magic Missile']",
+        "2": "['Invisibility', 'Burning Arc', 'Blur']"
+      }
+    },
+    "spellsPrepared": {
+      "wizard": { }
+    } 
   },
   "2": {
     "name": "Ian",

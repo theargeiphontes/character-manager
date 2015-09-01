@@ -14,6 +14,8 @@ function PathfinderCharacter (id, __char) {
 
 PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
 // TODO: character.save();
+// TODO: bonus spells formula http://www.enworld.org/forum/showthread.php?45626-Bonus-Spells
+// TODO: adding spellcasting classs means adding place holders for spells known, spells prepared
 /* 
   sinon
   spies - wraps a function, and asserts that its been called
@@ -49,14 +51,39 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
 
   'loadSpellSlots': function(spellsPerDay) {
     for(var className in this.JSON['class']) {
-      spellSlots[className] = JSON.parse(spellsPerDay[className][this.JSON['class'][className]]);
+      spellSlots[className] = spellsPerDay[className][this.JSON['class'][className]];
     }
     return spellSlots;
   },
 
-  //'prepareSpells': function(spellList) {
+  'setSpellsKnown': function(className, spellList) {
+    this.JSON['spellsKnown'][className] = spellList;
+  },
 
-  //},
+  'getSpellsKnown': function() {
+    return this.JSON['spellsKnown'];
+  },
+
+  'prepareSpell': function(className, spellLevel, spellName) {
+    if(this.JSON['spellsPrepared'][className][spellLevel] === undefined) {
+      this.JSON['spellsPrepared'][className][spellLevel] = [spellName];
+    } else if(this.JSON['spellsPrepared'][className][spellLevel].length < spellSlots[className][spellLevel]) {
+      this.JSON['spellsPrepared'][className][spellLevel].push(spellName);
+    }
+  },
+
+  'getSpellsPrepared': function() {
+    return this.JSON['spellsPrepared'];
+  },
+
+  'castSpell': function(className, spellLevel, spellName) {
+    if(spellName === null) {
+      spellSlots[className][spellLevel]--;
+    } else{
+      spellSlots[className][spellLevel]--;
+      this.JSON['spellsPrepared'][className][spellLevel].splice(spellName);
+    }
+  },
 
   'validate': function() {
     var errs = {};
@@ -122,6 +149,8 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
     }
     return errs;
   }
+
+  //TODO: 'validateSpells': function() { }
 
 });
 
