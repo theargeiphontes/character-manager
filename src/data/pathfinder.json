@@ -26,11 +26,11 @@
       "wizard": "3"
     },
     "spellsKnown": {
-      "wizard": {
-        "0": "['Acid Splash', 'Daze', 'Light', 'Ghost Sounds', 'Prestidigitation']",
-        "1": "['Grease', 'Mage Armor', 'Color Spray', 'Magic Missile']",
-        "2": "['Invisibility', 'Burning Arc', 'Blur']"
-      }
+      "wizard": [
+        ["Acid Splash", "Daze", "Light", "Ghost Sounds", "Prestidigitation"],
+        ["Grease", "Mage Armor", "Color Spray", "Magic Missile"],
+        ["Invisibility", "Burning Arc", "Blur"]
+      ]
     },
     "spellsPrepared": {
       "wizard": { }
