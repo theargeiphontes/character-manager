@@ -47,6 +47,19 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
 
   'updateClass': function(className, level) {
     this.JSON['class'][className] = level;
+  },
+
+   'calculateBonusSpells': function(casterAbilityScore) {
+     var bonusSpells;
+     var abilityScore = casterAbilityScore;
+     for(var className in spellSlots) {
+       for(var i = 1; i < spellSlots[className].length; i++) {
+         bonusSpells = Math.floor((abilityScore - (i + 1) * 2) / 8);
+         if(bonusSpells > 0) {
+           spellSlots[className][i] = spellSlots[className][i] + bonusSpells;
+        }
+      }
+    }
   }, 
 
   'loadSpellSlots': function(spellsPerDay) {

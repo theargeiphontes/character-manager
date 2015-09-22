@@ -97,7 +97,7 @@ describe('pathfinder character', function() {
         'name': 'Dan',
         'game': 'pathfinder',
         'stats': {
-         'str': '12',
+          'str': '12',
           'dex': '16',
           'con': '8',
           'int': '20',
@@ -144,6 +144,7 @@ describe('pathfinder character', function() {
         }
       };
       var spellSlots = myCharacter.loadSpellSlots(spellsPerDay);
+      myCharacter.calculateBonusSpells(myCharacter.getStat('int'));
       myCharacter.prepareSpell('wizard', '0', 'Light');
       myCharacter.prepareSpell('wizard', '0', 'Acid Splash');
       myCharacter.prepareSpell('wizard', '1', 'Grease');
