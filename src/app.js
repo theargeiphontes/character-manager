@@ -14,7 +14,7 @@ var app = express();
 
 app.set('views', __dirname + '/templates'); 
 app.set('view engine', 'jade'); 
-app.use(__dirname, express.static('/javascript'));
+//app.use(express.static(__dirname + '/javascript'));
 
 var dbPath = __dirname + '/data/';
 var dbJson = 'pathfinder.json';
@@ -37,7 +37,7 @@ app.get('/', function(req, res) {
 app.get('/pathfinder/characters/:charId', function (req, res) {
   var html = jade.renderFile(__dirname + '/templates/index.jade', { 
     charId: req.params.charId,
-    name: __charData[req.params.charId].getName(),
+    name: __charData[req.params.charId].get('name'),
     stats: __charData[req.params.charId].getStats()
   });
   res.send(html);
