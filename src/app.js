@@ -14,7 +14,7 @@ var app = express();
 
 app.set('views', __dirname + '/templates'); 
 app.set('view engine', 'jade'); 
-app.use(express.static(__dirname, '/javascript'));
+app.use(__dirname, express.static('/javascript'));
 
 var dbPath = __dirname + '/data/';
 var dbJson = 'pathfinder.json';
