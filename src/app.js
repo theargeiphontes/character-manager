@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require ('path');
 var jade = require('jade');
 var BPromise = require('bluebird');
 var bodyParser = require('body-parser');
@@ -9,12 +10,12 @@ var pfChar = require('../src/models/PathfinderCharacter.js');
 
 var app = express();
 
- app.use(bodyParser.urlencoded({ extended: false }));
- app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.set('views', __dirname + '/templates'); 
 app.set('view engine', 'jade'); 
-//app.use(express.static(__dirname + '/javascript'));
+app.use('/static', express.static(path.join(__dirname, '/static')));
 
 var dbPath = __dirname + '/data/';
 var dbJson = 'pathfinder.json';
