@@ -3,6 +3,7 @@ var _ = require('underscore');
 var DB = require('../../src/models/DBFileRead.js');
 
 var PathfinderDBHelper = function() {
+  DB = new DB();
 };
 
 PathfinderDBHelper.prototype.save = function(path, db, characterMap) {
@@ -19,6 +20,10 @@ PathfinderDBHelper.prototype.save = function(path, db, characterMap) {
   } else {
     return DB.writeDB(path, db, charJSON);
   }
+};
+
+PathfinderDBHelper.prototype.load = function(path, db) {
+  return DB.loadDB(path, db);
 };
 
 PathfinderDBHelper.prototype.loadSpells = function(path, db) {

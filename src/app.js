@@ -4,8 +4,7 @@ var jade = require('jade');
 var BPromise = require('bluebird');
 var bodyParser = require('body-parser');
 
-var DB = require('../src/models/DBFileRead.js');
-//var pfCharacters = require('../src/controllers/PathfinderCharacters.js');
+var DBHelper = require('../src/helpers/PathfinderDBHelper.js');
 var pfChar = require('../src/models/PathfinderCharacter.js');
 
 var app = express();
@@ -20,9 +19,9 @@ app.use('/static', express.static(path.join(__dirname, '/static')));
 var dbPath = __dirname + '/data/';
 var dbJson = 'pathfinder.json';
 
-var DB = new DB();
+var DB = new DBHelper();
 var __charData = [];
-BPromise.join(DB.loadDB(dbPath, dbJson), function(data) {
+BPromise.join(DB.load(dbPath, dbJson), function(data) {
   for(var id in data) {
     __charData.push(new pfChar(id, data[id]));
   }
@@ -45,8 +44,11 @@ app.get('/pathfinder/characters/:charId', function (req, res) {
 });
 
 app.post('/pathfinder/characters/:charId', function (req, res){
-  __charData[req.params.charId].updateStats(req.body.stats);
-  DB.writeDB(dbPath, dbJson, __charData);
+  var stats = req.body.stats;
+  for(var stat in stats) {
+    __charData[req.params.charId].setStat(stat, stats[stat]);
+  } console.log(__charData);
+  DB.save(dbPath, dbJson, __charData);
   res.redirect('/pathfinder/characters/' + req.body.charId);
 });
 
