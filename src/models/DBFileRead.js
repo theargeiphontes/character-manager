@@ -2,7 +2,6 @@ var BPromise = require('bluebird');
 var fs = BPromise.promisifyAll(require('fs'));
 
 var DBFileRead = function () {
-  // load db here?
 };
 
 DBFileRead.prototype.loadDB = function (path, filename) {

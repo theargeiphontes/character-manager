@@ -40,6 +40,7 @@ db.prototype.saveEntry = function(entry) {
 
 
 module.exports = db;
+// TODO
 // function createDB(dbPath, dbJson) {
 //   return dbCache || (dbCache = new db(dbPath, dbJson));
 // };
