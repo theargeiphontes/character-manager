@@ -3,25 +3,25 @@ var DBHelper = require('../src/helpers/PathfinderDBHelper.js');
 var DB;
 var dbCache;
 var dbPath;
-var dbJson;
+var dbJSON;
 
-var db = function(dbPath, dbJson) {
-	this.dbPath = dbPath;
-	this.dbJson = dbJson;
+var db = function(path, JSON) {
+	dbPath = path;
+	dbJSON = JSON;
 	DB = new DBHelper();
 };
 
-db.prototype.set = function(dbPath, dbJson) {
-	this.dbPath = dbPath;
-	this.dbJson = dbJson;
+db.prototype.set = function(path, JSON) {
+	dbPath = path;
+	dbJSON = JSON;
 };
 
 db.prototype.save = function() {
-  DB.save(dbPath, dbJson, dbCache);
+  DB.save(dbPath, dbJSON, dbCache);
 };
 
 db.prototype.load = function() {
-	dbCache = DB.load();
+	dbCache = DB.load(dbPath, dbJSON);
 	return dbCache;
 };
 
@@ -41,6 +41,6 @@ db.prototype.saveEntry = function(entry) {
 
 module.exports = db;
 // TODO
-// function createDB(dbPath, dbJson) {
-//   return dbCache || (dbCache = new db(dbPath, dbJson));
+// function createDB(dbPath, dbJSON) {
+//   return dbCache || (dbCache = new db(dbPath, dbJSON));
 // };

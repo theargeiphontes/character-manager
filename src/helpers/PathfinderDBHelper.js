@@ -25,15 +25,11 @@ PathfinderDBHelper.prototype.save = function(path, db, characterMap) {
 };
 
 PathfinderDBHelper.prototype.load = function(path, db) {
-  return DB.loadDB(path, db);
-};
-
-PathfinderDBHelper.prototype.load = function(path, db) {
   var charJSON = {};
-  BPromise.join(DB.load(path, db), 
+  BPromise.join(DB.loadDB(path, db), 
     function(data) {
-      for(var id in data) {
-        charJSON.push(new pfChar(id, data[id]));
+      for(var key in data) {
+        charJSON[key] = new pfChar(key, data[key]);
       }
     })
     .catch(function(err) {
