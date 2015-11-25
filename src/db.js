@@ -1,45 +1,45 @@
-var BPromise = require('bluebird');
-
 var DBHelper = require('../src/helpers/PathfinderDBHelper.js');
-var pfChar = require('../src/models/PathfinderCharacter.js');
 
-var DB = new DBHelper();
-var __charData = [];
+var DB;
+var dbCache;
 var dbPath;
 var dbJson;
 
-var setDB = function(dbPath, dbJson) {
+var db = function(dbPath, dbJson) {
 	this.dbPath = dbPath;
 	this.dbJson = dbJson;
-}
-
-var saveDB = function() {
-  DB.save(dbPath, dbJson, __charData);
+	DB = new DBHelper();
 };
 
-var loadDB = function() {
-	return BPromise.join(DB.load(dbPath, dbJson), 
-					function(data) {
-					  for(var id in data) {
-					    __charData.push(new pfChar(id, data[id]));
-					  }
-					})
-					.catch(function(err) {
-						console.error('error =( >> ' + err);
-					}).done();
+db.prototype.set = function(dbPath, dbJson) {
+	this.dbPath = dbPath;
+	this.dbJson = dbJson;
 };
 
-var getCharData = function() {
-	return __charData;
+db.prototype.save = function() {
+  DB.save(dbPath, dbJson, dbCache);
 };
 
-var setCharData = function(charData) {
-	__charData = charData;
+db.prototype.load = function() {
+	dbCache = DB.load();
+	return dbCache;
 };
 
-module.exports.setDB = setDB;
-module.exports.saveDB = saveDB;
-module.exports.loadDB = loadDB;
-module.exports.getCharData = getCharData;
-module.exports.setCharData = setCharData;
+db.prototype.getDBCache = function() {
+	return dbCache;
+};
 
+db.prototype.setDBCache = function(cache) {
+	dbCache = cache;
+};
+
+db.prototype.saveEntry = function(entry) {
+	dbCache[entry.getId()] = entry;
+	db.prototype.save();
+};
+
+
+module.exports = db;
+// function createDB(dbPath, dbJson) {
+//   return dbCache || (dbCache = new db(dbPath, dbJson));
+// };

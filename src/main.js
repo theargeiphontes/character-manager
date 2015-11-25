@@ -5,5 +5,5 @@ var dbPath = __dirname + '/data/';
 var dbJson = 'pathfinder.json';
 //var port = process.argv[0];
 
-db.setDB(dbPath, dbJson);
-app;
+db = new db(dbPath, dbJson);
+app(db);
