@@ -3,8 +3,6 @@ function Character(id, json) {
   this.JSON = json;
 }
 
-// TODO: should my code here use extend on type Object?
-
 Character.prototype.getId = function() {
   return this.id;
 };
