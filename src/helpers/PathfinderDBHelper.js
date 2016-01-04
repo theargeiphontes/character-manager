@@ -5,11 +5,12 @@ var pfChar = require('../../src/models/PathfinderCharacter.js');
 
 var spellTables = {};
 var dbPath;
+var dbConn;
 
 var PathfinderDBHelper = function(path) {
   dbPath = path;
-  DB = new DB();
-  spellTables = DB.loadDB(dbPath, 'spellTables.json');
+  dbConn = new DB();
+  spellTables =dbConn.loadDB(dbPath, 'spellTables.json');
 };
 
 PathfinderDBHelper.prototype.getTables = function() {
@@ -28,13 +29,13 @@ PathfinderDBHelper.prototype.save = function(db, characterMap) {
   if(_.keys(errs).length > 0) {
     return errs;
   } else {
-    return DB.writeDB(dbPath, db, charJSON);
+    return dbConn.writeDB(dbPath, db, charJSON);
   }
 };
 
 PathfinderDBHelper.prototype.load = function(db) {
   var charJSON = {};
-  BPromise.join(DB.loadDB(dbPath, db), 
+  BPromise.join(dbConn.loadDB(dbPath, db), 
     function(data) {
       for(var key in data) {
         charJSON[key] = new pfChar(key, data[key]);

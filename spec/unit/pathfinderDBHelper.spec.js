@@ -12,7 +12,7 @@ describe('pathfinder DB helper', function() {
 
   beforeEach(function() {
     dbPath = path.resolve(__dirname + '/../../src/data') + '/';
-    dbJSON = 'pathfinder.json';
+    console.log('path >> ' + dbPath);
     dbHelper = new DBHelper(dbPath);
   });
 
