@@ -1,14 +1,22 @@
-var _ = require('underscore');
 var BPromise = require('bluebird');
 
 var DB = require('../../src/models/DBFileRead.js');
 var pfChar = require('../../src/models/PathfinderCharacter.js');
 
-var PathfinderDBHelper = function() {
+var spellTables = {};
+var dbPath;
+
+var PathfinderDBHelper = function(path) {
+  dbPath = path;
   DB = new DB();
+  spellTables = DB.loadDB(dbPath, 'spellTables.json');
 };
 
-PathfinderDBHelper.prototype.save = function(path, db, characterMap) {
+PathfinderDBHelper.prototype.getTables = function() {
+  return spellTables;
+};
+
+PathfinderDBHelper.prototype.save = function(db, characterMap) {
   var charJSON = {};
   var errs = {};
 
@@ -20,13 +28,13 @@ PathfinderDBHelper.prototype.save = function(path, db, characterMap) {
   if(_.keys(errs).length > 0) {
     return errs;
   } else {
-    return DB.writeDB(path, db, charJSON);
+    return DB.writeDB(dbPath, db, charJSON);
   }
 };
 
-PathfinderDBHelper.prototype.load = function(path, db) {
+PathfinderDBHelper.prototype.load = function(db) {
   var charJSON = {};
-  BPromise.join(DB.loadDB(path, db), 
+  BPromise.join(DB.loadDB(dbPath, db), 
     function(data) {
       for(var key in data) {
         charJSON[key] = new pfChar(key, data[key]);
@@ -34,11 +42,8 @@ PathfinderDBHelper.prototype.load = function(path, db) {
     })
     .catch(function(err) {
       console.error('error =( >> ' + err);
-    })
-  .done();
+    }
+  ).done();
   return charJSON;
 };
-
-// TODO: Spell table loading
-
 module.exports = PathfinderDBHelper;

@@ -8,7 +8,7 @@ var dbJSON;
 var db = function(path, JSON) {
 	dbPath = path;
 	dbJSON = JSON;
-	DB = new DBHelper();
+	DB = new DBHelper(dbPath);
 };
 
 db.prototype.set = function(path, JSON) {
@@ -21,7 +21,7 @@ db.prototype.save = function() {
 };
 
 db.prototype.load = function() {
-	dbCache = DB.load(dbPath, dbJSON);
+	dbCache = DB.load(dbJSON);
 	return dbCache;
 };
 
@@ -29,8 +29,8 @@ db.prototype.getDBCache = function() {
 	return dbCache;
 };
 
-db.prototype.setDBCache = function(cache) {
-	dbCache = cache;
+db.prototype.getTables = function() {
+	return DB.getTables();
 };
 
 db.prototype.saveEntry = function(entry) {

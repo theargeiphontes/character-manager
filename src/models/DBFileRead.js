@@ -14,8 +14,8 @@ DBFileRead.prototype.loadDB = function (path, filename) {
     });
 };
 
-DBFileRead.prototype.writeDB = function (path, filename, JSON) {
-  return fs.writeFileAsync(path + filename, JSON.stringify(JSON, null, 4), 'utf8')
+DBFileRead.prototype.writeDB = function (path, filename, json) {
+  return fs.writeFileAsync(path + filename, JSON.stringify(json, null, 4), 'utf8')
     .then(function() {
       return true;
     })

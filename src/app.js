@@ -11,7 +11,7 @@ module.exports = function(database) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
-  app.set('views', __dirname + '/templates'); 
+  app.set('views', path.join(__dirname, '/templates')); 
   app.set('view engine', 'jade'); 
   app.use('/static', express.static(path.join(__dirname, '/static')));
 

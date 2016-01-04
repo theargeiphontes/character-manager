@@ -6,5 +6,4 @@ var dbJSON = 'pathfinder.json';
 //var port = process.argv[0];
 
 db = new db(dbPath, dbJSON);
-console.log('db >> ' + db);
 app(db);
