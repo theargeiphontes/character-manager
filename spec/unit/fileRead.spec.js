@@ -26,6 +26,7 @@ describe('db', function() {
     it('read and save file', function() {
       return dbLoad.loadDB(dbPath, dbJSON)
         .then(function(json) {
+          json.should.not.be.empty;
           json[0].name.should.equal('George');
           json[1].stats.should.have.property('str', '12');
           dbLoad.writeDB(dbPath, 'new' + dbJSON, json);
@@ -40,11 +41,11 @@ describe('db', function() {
   });
 
   describe('Failure as Intended', function() {
-    it('should fail to read due to bad path', function() {
+    it('should fail to load due to bad path', function() {
       return dbLoad.loadDB('a/terrible/path/to/follow/', dbJSON)
       .then(assert.fail)
       .catch(function(err) {
-        //console.log(err.message);
+        console.log(err.message);
         assert.include(err.message, 'Could not read');
       });
     });
@@ -55,9 +56,21 @@ describe('db', function() {
       }
 
       return dbLoad.writeDB('a/terrible/path/to/follow/', dbJSON, failJSON)
+      .then(assert.fail)
       .catch(function(err) {
-        assert.include(err.message, 'Could not read');
+        console.log(err.message);
+        assert.include(err.message, 'Could not write');
       });
     });
+
+    /*it('should fail to load empty file', function() {
+      var emptyPath = path.resolve(__dirname + '/../..src/data') + '/';
+      var emptyJson = 'empty.json';
+
+      return dbLoad.loadDB(emptyPath, emptyJson)
+      .catch(function(err) {
+        assert.include(err.message, 'empty');
+      });
+    });*/
   });
 });

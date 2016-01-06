@@ -20,7 +20,7 @@ DBFileRead.prototype.writeDB = function (path, filename, json) {
       return true;
     })
     .catch(function(err) {
-      return new Error('Could not write ' + filename + ' to disk ' + err);
+      throw new Error('Could not write ' + filename + ' to disk ' + err);
     });
 };
 
