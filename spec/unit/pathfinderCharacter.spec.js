@@ -3,20 +3,45 @@ var PathfinderCharacter = require('../../src/models/PathfinderCharacter.js');
 
 var __id = 0;
 var __charData = {
-  'name': 'Ian',
-  'game': 'pathfinder',
-  'stats': {
-    'str': '10',
-    'dex': '15',
-    'con': '10',
-    'int': '14',
-    'wis': '12',
-    'cha': '14'
-  },
-  'class': {
-    'rogue': '1'
-  }
-};
+        "name": "Dan",
+        "game": "pathfinder",
+        "stats": {
+            "str": "12",
+            "dex": "16",
+            "con": "8",
+            "int": "20",
+            "wis": "10",
+            "cha": "20"
+        },
+        "class": {
+            "wizard": "3"
+        },
+        "spellsKnown": {
+            "wizard": [
+                [
+                    "Acid Splash",
+                    "Daze",
+                    "Light",
+                    "Ghost Sounds",
+                    "Prestidigitation"
+                ],
+                [
+                    "Grease",
+                    "Mage Armor",
+                    "Color Spray",
+                    "Magic Missile"
+                ],
+                [
+                    "Invisibility",
+                    "Burning Arc",
+                    "Blur"
+                ]
+            ]
+        },
+        "spellsPrepared": {
+            "wizard": {}
+        }
+    };
 
 describe('pathfinder character', function() {
   var character;
@@ -38,13 +63,13 @@ describe('pathfinder character', function() {
       var charClassList = character.getClassList();
 
       for(var charClass in charClassList) {
-        expect(charClass).to.equal('rogue');
-        expect(charClassList[charClass]).to.equal('1');
+        expect(charClass).to.equal('wizard');
+        expect(charClassList[charClass]).to.equal('3');
       }
     });
 
     it('fetch specific class level', function() {
-      expect(character.getClassLevel('rogue')).to.equal('1');
+      expect(character.getClassLevel('wizard')).to.equal('3');
     });
 
     it('fail to get malformed stat name', function() {
@@ -161,8 +186,7 @@ describe('pathfinder character', function() {
   describe('#validate()', function() {
     it('validate a character is good', function() {
       var errs = character.validate()
-      expect(errs['class']).to.be.empty;
-      expect(errs['stats']).to.be.empyt;
+      expect(errs).to.be.null;
     });
 
     it('validate a character has errors', function() {

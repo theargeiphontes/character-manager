@@ -100,10 +100,24 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
 
   'validate': function() {
     var errs = {};
-    
-    errs['class'] = this.validateClass();
-    errs['stats'] = this.validateStats();
-    
+    var err;
+
+    err = null;
+    err = this.validateClass();
+    if(err !== null) {
+      errs['class'] = err;
+    }
+
+    err = null;
+    err = this.validateStats();
+    if(err !== null) {
+      errs['stats'] = err;
+    }
+
+    if(_.isEmpty(errs)) {
+      errs = null;
+    }
+
     return errs;
   },
 
@@ -136,6 +150,11 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
     if(charLevel > LEVEL_CAP) {
       errs.push('Total character level greater than ' + LEVEL_CAP + ', ' + charLevel);
     }
+
+    if(_.isEmpty(errs)) {
+      errs = null;
+    }
+
     return errs;
   },
 
@@ -160,6 +179,11 @@ PathfinderCharacter.prototype = _.extend({}, Character.prototype, {
         errs.push('Stat ' + stat + ' out of bounds');
       }
     }
+
+    if(_.isEmpty(errs)) {
+      errs = null;
+    }
+
     return errs;
   }
 
