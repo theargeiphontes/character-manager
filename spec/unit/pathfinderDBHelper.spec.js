@@ -17,7 +17,7 @@ describe('pathfinder DB helper', function() {
 
   describe('spell tables', function() {
     it('should return list of spell tables', function() {
-      BPromise.resolve(dbHelper.getTables())
+      BPromise.resolve(dbHelper.getSpellTables())
         .then(function(spellTables) {
           var clericSpellTable = spellTables['cleric'];
           var sorcSpellTable = spellTables['sorcerer'];
