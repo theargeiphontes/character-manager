@@ -29,7 +29,10 @@ describe('db', function() {
           json.should.not.be.empty;
           json[0].name.should.equal('George');
           json[1].stats.should.have.property('str', '12');
-          dbLoad.writeDB(dbPath, 'new' + dbJSON, json);
+          return dbLoad.writeDB(dbPath, 'new' + dbJSON, json)
+        })
+        .then(function(success) {
+          success.should.to.be.true;
         })
         .catch(function(err) {
           console.error('Err =( ++ ' + err);
