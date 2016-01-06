@@ -11,7 +11,7 @@ Character.prototype.get = function(key) {
   return this.JSON[key];
 };
 
-Character.prototype.getJSON = function() {
+Character.prototype.getJson = function() {
   return this.JSON;
 };
 

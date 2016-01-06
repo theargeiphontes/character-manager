@@ -20,7 +20,7 @@ describe('character', function() {
       var id = character.getId();
       var name = character.get('name');
       var game = character.get('game');
-      var rawData = character.getJSON();
+      var rawData = character.getJson();
       
       expect(id).to.equal(__id);
       expect(name).to.equal(__charData['name']);
@@ -59,7 +59,7 @@ describe('character', function() {
 
       var name = character.get('name');
       var game = character.get('game');
-      var rawData = character.getJSON();
+      var rawData = character.getJson();
       
       expect(game).to.not.equal('Ian');
       expect(game).to.not.equal('test');
