@@ -1,9 +1,9 @@
 var app = require('../src/app.js');
-var db = require('../src/db.js');
+var dbJs = require('../src/db.js');
 
 var dbPath = __dirname + '/data/';
-var dbJSON = 'pathfinder.json';
-//var port = process.argv[0];
+var dbJson = 'pathfinder.json';
 
-db = new db(dbPath, dbJSON);
-app(db);
+var db = new dbJs(dbPath, dbJson);
+
+app.start(db);
