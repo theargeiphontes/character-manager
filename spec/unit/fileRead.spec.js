@@ -45,7 +45,6 @@ describe('db', function() {
       return dbLoad.loadDB('a/terrible/path/to/follow/', dbJSON)
       .then(assert.fail)
       .catch(function(err) {
-        console.log(err.message);
         assert.include(err.message, 'Could not read');
       });
     });
@@ -58,7 +57,6 @@ describe('db', function() {
       return dbLoad.writeDB('a/terrible/path/to/follow/', dbJSON, failJSON)
       .then(assert.fail)
       .catch(function(err) {
-        console.log(err.message);
         assert.include(err.message, 'Could not write');
       });
     });
