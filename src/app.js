@@ -3,6 +3,7 @@ var app = express();
 var path = require('path');
 var jade = require('jade');
 var bodyParser = require('body-parser');
+//var util = require('util');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -30,7 +31,6 @@ app.post('/pathfinder/characters/:charId', function (req, res){
   for(var stat in stats) {
     character.setStat(stat, stats[stat]);
   } 
-  console.log('appjs >> ' + character);
   save(character);
   res.redirect('/pathfinder/characters/' + character.getId());
 });
@@ -45,11 +45,18 @@ app.use('/*', function (req, res) {
 
 var save = function(character) {
   if(DB !== undefined) {
+    console.log('db defined');
     var saveSuccessful = DB.saveEntry(character);
-    if(!saveSuccessful) {
-      var errs = saveSuccessful;
-      for(var err in errs) {
-        console.log('Errors saving: ' + errs[err]);
+    if(saveSuccessful !== true) {
+      var saveErrs = saveSuccessful;
+      for(var charId in saveErrs) {
+        var charErrs = saveErrs[charId];
+        for(var key in charErrs) {
+          var errs = charErrs[key];
+          for(var i in errs) {
+            console.log('Error saving charId: ' + charId + ' Error: ' + errs[i]);
+          }
+        }
       }
     }
   } else {

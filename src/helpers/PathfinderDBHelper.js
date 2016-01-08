@@ -35,7 +35,6 @@ PathfinderDBHelper.prototype.save = function(characterMap) {
   }
 
   if(_.keys(errs).length > 0) {
-    console.log('db helper errs >> ' + errs);
     return errs;
   } else {
     console.log('no errors in dbhelper');
