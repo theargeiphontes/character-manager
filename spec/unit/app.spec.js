@@ -10,6 +10,14 @@ var db;
 
 describe('app', function() {
 
+	describe('top level routes', function() {
+		it('/', function(done) {
+			api
+				.get('/')
+				.expect(200, done);
+		});
+	});
+
 	describe('pathfinder routes', function() {
 
 		it('respond with json', function(done) {

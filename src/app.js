@@ -15,7 +15,7 @@ app.get('/pathfinder/characters/:charId', function (req, res) {
   var charId = req.params.charId;
   var character = __charData[charId];
 
-  var html = jade.renderFile(__dirname + '/templates/index.jade', { 
+  var html = jade.renderFile(__dirname + '/templates/character.jade', { 
     charId: charId,
     name: character.get('name'),
     stats: character.get('stats')
@@ -36,6 +36,10 @@ app.post('/pathfinder/characters/:charId', function (req, res){
 
 app.get('/pathfinder.json', function(req, res) {
   res.send(__charData);
+});
+
+app.use('/', function(req, res) {
+  res.render(__dirname + '/templates/index.jade');
 });
 
 app.use('/*', function (req, res) { 
