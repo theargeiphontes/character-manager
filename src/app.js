@@ -3,7 +3,6 @@ var app = express();
 var path = require('path');
 var jade = require('jade');
 var bodyParser = require('body-parser');
-//var util = require('util');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

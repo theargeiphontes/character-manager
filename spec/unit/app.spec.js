@@ -8,7 +8,7 @@ var app = require('../../src/test.js');
 var dbJs = require('../../src/db.js');
 var db;
 
-describe('express app', function() {
+describe('app', function() {
 
 	describe('pathfinder routes', function() {
 
