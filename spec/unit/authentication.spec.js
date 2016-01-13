@@ -17,14 +17,19 @@ describe('authentication', function() {
 		beforeEach(function() {
 			clientId = oAuthSecrets['web']['client_id'];
 			clientSecret = oAuthSecrets['web']['client_secret'];
-			redirectUrl = 'http://localhost:30000';
-			scope = ['userinfo.profile', 'userinfo.email'];
+			redirectUrl = 'http://character-manager.i.argeiphontes.com:3000';
+			scope = ['profile', 'email'];
 		});
 
 		it('logs in', function() {
 			auth = new Authentication(oAuthSecrets, redirectUrl);
 			var client = auth.getClient();
-			console.log(auth.getUserInfo(client));
+			var authorizeUrl = client.generateAuthUrl({
+      	access_type: 'offline',
+      	scope: scope,
+      	state: auth.generateStateToken()
+   		});
+   		console.log(authorizeUrl);
 
 			expect(true).to.be.false;
 		});

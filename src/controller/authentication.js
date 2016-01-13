@@ -17,6 +17,7 @@ Authentication.prototype.generateStateToken = function() {
 	return crypto.randomBytes(16).toString('hex');
 };
 
+// TODO: wrap in a promise
 Authentication.prototype.getClient = function() {
 	return new googleapis.auth.OAuth2(
 		clientId,
@@ -25,6 +26,7 @@ Authentication.prototype.getClient = function() {
 	);
 };
 
+// TODO: wrap in a promise
 Authentication.prototype.getUserInfo = function(client) {
 	var plus = googleapis.plus('v1');
 	return plus.people.get({
