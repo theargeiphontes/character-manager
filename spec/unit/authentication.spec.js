@@ -1,7 +1,7 @@
 var path = require('path');
 var expect = require('chai').expect;
 
-var Authentication = require('../../src/controller/authentication.js');
+var Authentication = require('../../src/controllers/authentication.js');
 var oAuthSecrets = require('../../.secrets/client_secret.json');
 
 describe('authentication', function() {
@@ -18,7 +18,7 @@ describe('authentication', function() {
 			clientId = oAuthSecrets['web']['client_id'];
 			clientSecret = oAuthSecrets['web']['client_secret'];
 			redirectUrl = 'http://character-manager.i.argeiphontes.com:3000';
-			scope = ['profile', 'email'];
+			scope = oAuthSecrets['web']['scope'];
 		});
 
 		it('logs in', function() {
@@ -29,9 +29,7 @@ describe('authentication', function() {
       	scope: scope,
       	state: auth.generateStateToken()
    		});
-   		console.log(authorizeUrl);
-
-			expect(true).to.be.false;
+			expect(authorizeUrl).to.contain('http');
 		});
 
 		it('destroy session', function() {
