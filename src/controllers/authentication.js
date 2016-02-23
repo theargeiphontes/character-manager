@@ -2,17 +2,16 @@
 
 var googleapis = require('googleapis');
 var crypto = require('crypto');
-//var BPromise = require('bluebird');
 
 var clientId;
 var clientSecret;
 var redirectUrl;
 var scope;
 
-function Authentication(secretsJson, url) {
+function Authentication(secretsJson) {
 	clientId = secretsJson['web']['client_id'];
 	clientSecret = secretsJson['web']['client_secret'];
-	redirectUrl = url;
+	redirectUrl = secretsJson['web']['redirect_uris'];
 	scope = secretsJson['web']['scope'];
 }
 
@@ -30,12 +29,12 @@ Authentication.prototype.getClient = function() {
 };
 
 // TODO: wrap in a promise
-Authentication.prototype.getUserInfo = function(client) {
+Authentication.prototype.getUserInfo = function(client, next) {
 	var plus = googleapis.plus('v1');
 	return plus.people.get({
 		userId: 'me',
 		auth: client
-	});
+	}, next);
 };
 
 
