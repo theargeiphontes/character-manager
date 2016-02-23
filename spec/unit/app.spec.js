@@ -1,11 +1,11 @@
+
+
 var path = require('path');
 var express = require('express');
 var expect = require('chai').expect;
 var request = require('supertest');
 var api = request('http://character-manager.i.argeiphontes.com:3000');
 
-var app = require('../../src/test.js');
-var dbJs = require('../../src/db.js');
 var db;
 
 describe('app', function() {
@@ -22,16 +22,14 @@ describe('app', function() {
 				});
 		});
 
-		it('oauth2callback', function(done) {
+		/*it('oauth2callback', function(done) {
+			console.log(api);
 			api
 				.get('/oauth2/authorize')
+				.expect(302)
 				.get('/oauth2callback')
-				.end(function(err, res) {
-					if(err) { throw err; }
-					console.log(res);
-					done();
-				})
-		}); 
+				.expect(200, done);
+		});*/ 
 	});
 
 	describe('top level routes', function() {

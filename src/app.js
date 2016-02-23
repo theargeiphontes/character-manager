@@ -7,15 +7,15 @@ var bodyParser = require('body-parser');
 var session = require('cookie-session');
 
 var oauthSecrets = require('../.secrets/client_secret.json');
+var whiteList = require('../.secrets/whiteList.json');
 var Authentication = require('./controllers/authentication.js');
 
-var auth = new Authentication(oauthSecrets, 
-      'http://character-manager.i.argeiphontes.com:3000');
+var auth = new Authentication(oauthSecrets);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
-  secret: oauthSecrets,
+  secret: oauthSecrets['web']['client_secret'],
   signed: true
 }));
 
@@ -23,7 +23,7 @@ app.set('views', path.join(__dirname, '/templates'));
 app.set('view engine', 'jade'); 
 app.use('/static', express.static(path.join(__dirname, '/static')));
 
-// Start of auth routes
+// Start of oAuth2 routes
 app.get('/oauth2/authorize', function(req, res) {
   /* jshint unused:false */
   var stateToken = auth.generateStateToken();
@@ -46,20 +46,34 @@ app.get('/oauth2callback', function(req, res) {
   auth.getClient().getToken(req.query.code, function(err, tokens) {
     if (err) { return res.status(400).send(err.message); }
     req.session.oauth2tokens = tokens;
-
     var client = auth.getClient();
     client.setCredentials(tokens);
     auth.getUserInfo(client, function(err, profile) {
-      if (err) { return res.status('500').send(err.message); }
+      if (err) { 
+        return res.status('500').send(err.message);
+      }
       req.session.profile = {
         id: profile.id,
         displayName: profile.displayName,
         name: profile.name,
-        image: profile.image
+        image: profile.image,
+        email: profile.emails[0].value
       };
-      res.redirect(req.session.oauth2return || '/');
+      // Validating white list to lockdownn access
+      if(checkWhiteList(req.session.profile.email)) {
+        res.redirect(req.session.oauth2return || '/');
+      } else {
+        return res.status('403').send('No permissions');
+      }
+      
     });
   });
+});
+
+app.get('/oauth2/logout', function(req, res) {
+  delete req.session.oauth2tokens;
+  delete req.session.profile;
+  res.redirect(req.query.return || req.session.oauth2return || '/');
 });
 
 // Start of PF routes
@@ -106,7 +120,6 @@ app.use(function(err, req, res) {
 
 var save = function(character) {
   if(DB !== undefined) {
-    console.log('db defined');
     var saveSuccessful = DB.saveEntry(character);
     if(saveSuccessful !== true) {
       var saveErrs = saveSuccessful;
@@ -115,7 +128,7 @@ var save = function(character) {
         for(var key in charErrs) {
           var errs = charErrs[key];
           for(var i in errs) {
-            console.log('Error saving charId: ' + charId + ' Error: ' + errs[i]);
+            console.error('Error saving charId: ' + charId + ' Error: ' + errs[i]);
           }
         }
       }
@@ -123,6 +136,15 @@ var save = function(character) {
   } else {
     console.error('DB is undefined');
   }
+};
+
+var checkWhiteList = function(email) {
+  for (var i in whiteList) {
+    if(email === whiteList[i]) {
+      return true;
+    } 
+  } 
+  return false;
 };
 
 var __charData = {};
