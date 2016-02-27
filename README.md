@@ -45,17 +45,7 @@ This is a personal project to cut my teeth on JS fundamentals.
   * ~~[convert over terminal command `subl`](https://www.sublimetext.com/docs/3/osx_command_line.html)~~
   * ~~[jade highlighting](https://sublime.wbond.net/packages/Jade)~~
 * Move to [ember](http://emberjs.com/)
-* Possible [OAuth](http://dailyjs.com/2014/11/14/grant/) solution
-* Swap over to [trello board](https://trello.com/) for user features
-
-### User features
-* I want to be able to go to a url on the server, find a character.
-  * if i cannot find a character, the system will 404
-  * ~~if i find a character, it will populate the stats for that character~~
-* I want to be able to go to any url and find a character
-  * if i can't find a character, 404
-* I want to be able to edit a character
-  * ~~enable edit button with alert~~
-  * convert stats into edit boxes with ajax
-* I want to be able to save a character's edits
+* ~~Possible [OAuth](http://dailyjs.com/2014/11/14/grant/) solution~~ (used [google's library](https://developers.google.com/api-client-library/javascript/reference/referencedocs))
+* Swap over to [trello board](https://trello.com/) for user stories
+* Swap over to using [express routers](http://expressjs.com/en/guide/routing.html)
 
